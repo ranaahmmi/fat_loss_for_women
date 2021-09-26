@@ -135,6 +135,7 @@ class WeightScreenState extends State<WeightScreen> {
                 ),
                 Image.asset(
                   'assets/icons/Polygon 2.png',
+                  color: AppColors.primaryColor,
                   height: 10,
                 ),
               ],

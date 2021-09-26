@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fat_loss_for_women/Screens/PlanScreen/PlanDetail.dart';
-import 'package:fat_loss_for_women/Screens/Utilities/WaterIntak/WaterIntakScreen.dart';
 import 'package:fat_loss_for_women/Screens/Utilities/WaterIntak/waterHeader.dart';
-import 'package:fat_loss_for_women/database/app_database.dart';
 import 'package:fat_loss_for_women/plugins/Ads.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
@@ -12,7 +10,6 @@ import 'package:fat_loss_for_women/models/Tuple/PlanProgressTuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'PlanWeeksScreen.dart';
@@ -129,32 +126,53 @@ class _PlanScreenState extends State<PlanScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            Text(plan.challengeDuration ?? '')
-                                                .text
-                                                .color(AppColors.white)
-                                                .size(48.sp)
-                                                .make()
-                                                .pOnly(
-                                                    left: 90.w,
-                                                    right: 58.w,
-                                                    top: 27.h,
-                                                    bottom: 27.h)
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.calendar_today_outlined,
+                                                  color: Color(0xFFD4FE1A),
+                                                  size: 60.h,
+                                                ).pOnly(left: 54.w),
+                                                Text(plan.challengeDuration ??
+                                                        '')
+                                                    .text
+                                                    .color(AppColors.white)
+                                                    .size(48.sp)
+                                                    .make()
+                                                    .pOnly(
+                                                        left: 26.w,
+                                                        right: 58.w,
+                                                        top: 27.h,
+                                                        bottom: 27.h)
+                                              ],
+                                            )
                                                 .box
                                                 .color(AppColors.black
                                                     .withOpacity(0.5))
                                                 .leftRounded(value: 30)
                                                 .make(),
                                             20.h.heightBox,
-                                            Text(plan.planLevel ?? '')
-                                                .text
-                                                .color(AppColors.white)
-                                                .size(48.sp)
-                                                .make()
-                                                .pOnly(
-                                                    left: 90.w,
-                                                    right: 58.w,
-                                                    top: 27.h,
-                                                    bottom: 27.h)
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons
+                                                      .signal_cellular_alt_rounded,
+                                                  color:
+                                                      getColor(plan.planLevel!),
+                                                  size: 60.h,
+                                                ).pOnly(left: 54.w),
+                                                Text(plan.planLevel ?? '')
+                                                    .text
+                                                    .color(AppColors.white)
+                                                    .size(48.sp)
+                                                    .make()
+                                                    .pOnly(
+                                                        left: 26.w,
+                                                        right: 58.w,
+                                                        top: 27.h,
+                                                        bottom: 27.h)
+                                              ],
+                                            )
                                                 .box
                                                 .color(AppColors.black
                                                     .withOpacity(0.5))
@@ -168,6 +186,13 @@ class _PlanScreenState extends State<PlanScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        Text(
+                                          'Cutting',
+                                          style: TextStyle(
+                                              color: Color(0xFFEFA81B),
+                                              fontSize: 48.sp,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                         Text(
                                           plan.planTitle!,
                                           style: TextStyle(
@@ -194,7 +219,9 @@ class _PlanScreenState extends State<PlanScreen> {
                                         66.h.heightBox,
                                         Container(
                                                 child: LinearPercentIndicator(
-                                          backgroundColor: Colors.black,
+                                          backgroundColor: Color(0xff440727),
+                                          linearGradient:
+                                              AppColors.themeGradient,
                                           animation: true,
                                           lineHeight: 20.0,
                                           animationDuration: 2500,
@@ -217,7 +244,7 @@ class _PlanScreenState extends State<PlanScreen> {
                                                   .make(),
                                           linearStrokeCap:
                                               LinearStrokeCap.roundAll,
-                                          progressColor: AppColors.primaryColor,
+                                          // progressColor: AppColors.primaryColor,
                                         ).px(20.w))
                                             .pOnly(bottom: 20)
                                       ],

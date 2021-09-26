@@ -82,11 +82,13 @@ class _BmiMeterPageState extends State<BmiMeterPage> {
                     .pSymmetric(v: 35.h, h: 100.w)
                     .box
                     .roundedLg
-                    .color(isUsUnit ? AppColors.primaryColor : AppColors.white)
+                    .linearGradient(isUsUnit
+                        ? [Color(0xFFFF488F), Color(0xFFFF8AB9)]
+                        : [AppColors.white, AppColors.white])
                     .border(
                         color: isUsUnit
                             ? AppColors.white
-                            : AppColors.TextColorLight.withOpacity(0.4),
+                            : AppColors.primaryColor.withOpacity(0.4),
                         width: isUsUnit ? 0 : 1)
                     .make()
                     .onInkTap(() {
@@ -102,11 +104,13 @@ class _BmiMeterPageState extends State<BmiMeterPage> {
                     .pSymmetric(v: 35.h, h: 100.w)
                     .box
                     .roundedLg
-                    .color(!isUsUnit ? AppColors.primaryColor : AppColors.white)
+                    .linearGradient(!isUsUnit
+                        ? [Color(0xFFFF488F), Color(0xFFFF8AB9)]
+                        : [AppColors.white, AppColors.white])
                     .border(
                         color: !isUsUnit
                             ? AppColors.white
-                            : AppColors.TextColorLight.withOpacity(0.4),
+                            : AppColors.primaryColor.withOpacity(0.4),
                         width: !isUsUnit ? 0 : 1)
                     .make()
                     .onInkTap(() {
@@ -116,11 +120,7 @@ class _BmiMeterPageState extends State<BmiMeterPage> {
               ],
             ),
             200.h.heightBox,
-            'Your Height'
-                .text
-                .color(AppColors.TextColorLight)
-                .size(53.sp)
-                .make(),
+            'Your Height'.text.color(AppColors.black).bold.size(53.sp).make(),
             30.h.heightBox,
             isUsUnit
                 ? '${((height ~/ 2.54) ~/ 12).toInt()}-${((height ~/ 2.54) % 12).toInt()}'
@@ -147,7 +147,7 @@ class _BmiMeterPageState extends State<BmiMeterPage> {
               child: HorizontalPicker(
                 header: '',
                 initialPosition: 140,
-                minValue: 0,
+                minValue: 122,
                 showNumber: true,
                 maxValue: 220,
                 showCursor: false,
@@ -161,11 +161,7 @@ class _BmiMeterPageState extends State<BmiMeterPage> {
                 },
               ),
             ),
-            'Your Weight'
-                .text
-                .color(AppColors.TextColorLight)
-                .size(53.sp)
-                .make(),
+            'Your Weight'.text.color(AppColors.black).bold.size(53.sp).make(),
             30.h.heightBox,
             isUsUnit
                 ? '${weight.toStringAsFixed(1)}'
@@ -189,38 +185,29 @@ class _BmiMeterPageState extends State<BmiMeterPage> {
             Center(
               child: Column(
                 children: [
-                  isUsUnit
-                      ? 'kg'
-                          .text
-                          .size(48.sp)
-                          .color(AppColors.primaryColor)
-                          .make()
-                      : 'lbs'
-                          .text
-                          .size(48.sp)
-                          .color(AppColors.primaryColor)
-                          .make(),
+                  'kg'.text.size(48.sp).color(AppColors.primaryColor).make(),
                   NumberPicker(
                     selectedTextStyle: TextStyle(
                         color: Colors.black,
                         fontSize: 33,
                         fontWeight: FontWeight.bold),
                     value: weight,
-                    minValue: 0,
-                    maxValue: 300,
+                    minValue: 30,
+                    maxValue: 180,
                     step: 1,
                     axis: Axis.horizontal,
                     onChanged: (value) => setState(() => weight = value),
                   ),
                   Image.asset(
                     'assets/icons/Polygon 2.png',
+                    color: AppColors.primaryColor,
                     height: 10,
                   ),
                 ],
               ),
             ),
             50.h.heightBox,
-            'Your Bmi is'.text.color(AppColors.black).size(53.sp).make(),
+            'Your Bmi is'.text.color(AppColors.black).bold.size(53.sp).make(),
             50.h.heightBox,
             Center(
               child: '${bmi.getBMI()} '

@@ -186,6 +186,15 @@ class MainScreenCard {
       required this.muscle});
 }
 
+Color getColor(String level) {
+  if (level.toLowerCase() == 'beginner')
+    return Color(0xff68CEFE);
+  else if (level.toLowerCase() == 'intermediate')
+    return Color(0xffEFA81B);
+  else
+    return Color(0xffFF0000);
+}
+
 String get nativeAdUnitId {
   /// Always test with test ads
   if (kDebugMode)

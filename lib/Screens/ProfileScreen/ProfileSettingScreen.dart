@@ -148,6 +148,8 @@ class _ProfileSettingState extends State<ProfileSetting> {
                         height: 1.4,
                         fontWeight: FontWeight.bold),
                     cursorColor: AppColors.primaryColor,
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                       counterText: '',
                       counterStyle: TextStyle(fontSize: 0),
@@ -172,59 +174,55 @@ class _ProfileSettingState extends State<ProfileSetting> {
                         value!.isEmpty ? "Username is required" : null),
                   ).h(199.h),
                   157.h.heightBox,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      'Us Units'
-                          .text
-                          .color(isUsUnit
-                              ? AppColors.white
-                              : AppColors.primaryColor)
-                          .size(48.sp)
-                          .makeCentered()
-                          .pSymmetric(v: 35.h, h: 100.w)
-                          .box
-                          .roundedLg
-                          .color(isUsUnit
-                              ? AppColors.primaryColor
-                              : AppColors.white)
-                          .border(
-                              color: isUsUnit
-                                  ? AppColors.white
-                                  : AppColors.TextColorLight.withOpacity(0.4),
-                              width: isUsUnit ? 0 : 1)
-                          .make()
-                          .onInkTap(() {
-                        isUsUnit = true;
-                        setState(() {});
-                      }),
-                      52.w.widthBox,
-                      'Metric Units'
-                          .text
-                          .color(!isUsUnit
-                              ? AppColors.white
-                              : AppColors.primaryColor)
-                          .size(48.sp)
-                          .makeCentered()
-                          .pSymmetric(v: 35.h, h: 100.w)
-                          .box
-                          .roundedLg
-                          .color(!isUsUnit
-                              ? AppColors.primaryColor
-                              : AppColors.white)
-                          .border(
-                              color: !isUsUnit
-                                  ? AppColors.white
-                                  : AppColors.TextColorLight.withOpacity(0.4),
-                              width: !isUsUnit ? 0 : 1)
-                          .make()
-                          .onInkTap(() {
-                        isUsUnit = false;
-                        setState(() {});
-                      }),
-                    ],
-                  ),
-                  201.h.heightBox,
+                 Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                'Us Units'
+                    .text
+                    .color(isUsUnit ? AppColors.white : AppColors.primaryColor)
+                    .size(48.sp)
+                    .makeCentered()
+                    .pSymmetric(v: 35.h, h: 100.w)
+                    .box
+                    .roundedLg
+                    .linearGradient(isUsUnit
+                        ? [Color(0xFFFF488F), Color(0xFFFF8AB9)]
+                        : [AppColors.white, AppColors.white])
+                    .border(
+                        color: isUsUnit
+                            ? AppColors.white
+                            : AppColors.primaryColor.withOpacity(0.4),
+                        width: isUsUnit ? 0 : 1)
+                    .make()
+                    .onInkTap(() {
+                  isUsUnit = true;
+                  setState(() {});
+                }),
+                52.w.widthBox,
+                'Metric Units'
+                    .text
+                    .color(!isUsUnit ? AppColors.white : AppColors.primaryColor)
+                    .size(48.sp)
+                    .makeCentered()
+                    .pSymmetric(v: 35.h, h: 100.w)
+                    .box
+                    .roundedLg
+                    .linearGradient(!isUsUnit
+                        ? [Color(0xFFFF488F), Color(0xFFFF8AB9)]
+                        : [AppColors.white, AppColors.white])
+                    .border(
+                        color: !isUsUnit
+                            ? AppColors.white
+                            : AppColors.primaryColor.withOpacity(0.4),
+                        width: !isUsUnit ? 0 : 1)
+                    .make()
+                    .onInkTap(() {
+                  isUsUnit = false;
+                  setState(() {});
+                }),
+              ],
+            ),
+             201.h.heightBox,
                   LineWidget(
                     title: 'Your Age',
                     value: age.toString(),

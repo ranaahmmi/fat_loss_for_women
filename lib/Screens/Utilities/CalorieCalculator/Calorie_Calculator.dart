@@ -80,7 +80,7 @@ class _CalorieCalculatorState extends State<CalorieCalculator> {
               style: TextStyle(fontSize: 72.sp, fontWeight: FontWeight.bold),
             ),
             107.h.heightBox,
-            Row(
+           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 'Us Units'
@@ -91,11 +91,13 @@ class _CalorieCalculatorState extends State<CalorieCalculator> {
                     .pSymmetric(v: 35.h, h: 100.w)
                     .box
                     .roundedLg
-                    .color(isUsUnit ? AppColors.primaryColor : AppColors.white)
+                    .linearGradient(isUsUnit
+                        ? [Color(0xFFFF488F), Color(0xFFFF8AB9)]
+                        : [AppColors.white, AppColors.white])
                     .border(
                         color: isUsUnit
                             ? AppColors.white
-                            : AppColors.TextColorLight.withOpacity(0.4),
+                            : AppColors.primaryColor.withOpacity(0.4),
                         width: isUsUnit ? 0 : 1)
                     .make()
                     .onInkTap(() {
@@ -111,11 +113,13 @@ class _CalorieCalculatorState extends State<CalorieCalculator> {
                     .pSymmetric(v: 35.h, h: 100.w)
                     .box
                     .roundedLg
-                    .color(!isUsUnit ? AppColors.primaryColor : AppColors.white)
+                    .linearGradient(!isUsUnit
+                        ? [Color(0xFFFF488F), Color(0xFFFF8AB9)]
+                        : [AppColors.white, AppColors.white])
                     .border(
                         color: !isUsUnit
                             ? AppColors.white
-                            : AppColors.TextColorLight.withOpacity(0.4),
+                            : AppColors.primaryColor.withOpacity(0.4),
                         width: !isUsUnit ? 0 : 1)
                     .make()
                     .onInkTap(() {

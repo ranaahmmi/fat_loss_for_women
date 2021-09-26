@@ -64,7 +64,7 @@ class CustomButton extends StatelessWidget {
     Key? key,
     required this.onpressed,
     required this.title,
-    this.color = AppColors.primaryColor,
+    this.color = Colors.transparent,
     this.textcolor = AppColors.white,
     this.fontsize = 14.0,
     this.elevation = 0,
@@ -79,16 +79,22 @@ class CustomButton extends StatelessWidget {
     return Container(
       height: height.h,
       width: width.w,
+      decoration: BoxDecoration(
+          gradient:
+              color == Colors.transparent ? AppColors.themeGradient : null,
+          borderRadius: BorderRadius.circular(99),
+          color: color == Colors.transparent ? null : color),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            elevation: elevation,
-            animationDuration: Duration(milliseconds: 300),
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(99.0),
             ),
-            primary: color,
-            shadowColor: shadowColor),
+          ),
+          minimumSize: MaterialStateProperty.all(Size(width, 50)),
+          backgroundColor: MaterialStateProperty.all(Colors.transparent),
+          shadowColor: MaterialStateProperty.all(Colors.transparent),
+        ),
         onPressed: onpressed,
         child: title.text
             .color(textcolor)

@@ -1,5 +1,4 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:fat_loss_for_women/Repository/ExerciseRepo.dart';
 import 'package:fat_loss_for_women/Screens/PlanScreen/PlanDetail.dart';
 import 'package:fat_loss_for_women/Screens/Utilities/WaterIntak/WaterIntakScreen.dart';
 import 'package:fat_loss_for_women/Shared/Aleartbox.dart';
@@ -109,7 +108,8 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                           ?.value ??
                       PlanProgressTuple(planId: 1, planProgress: 0);
               return LinearPercentIndicator(
-                backgroundColor: Colors.black.withOpacity(0.8),
+                backgroundColor: Color(0xff440727),
+                linearGradient: AppColors.themeGradient,
                 animation: true,
                 lineHeight: 64.h,
                 animationDuration: 2500,
@@ -124,7 +124,6 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                       .make(),
                 ),
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: AppColors.primaryColor,
               );
             }).px(111.w),
             215.h.heightBox,
@@ -492,7 +491,7 @@ class RoundCircle extends StatelessWidget {
                 child: Image.asset(
                   'assets/icons/rest_day.png',
                   width: 86.w,
-                  color: Colors.green,
+                  color: AppColors.primaryColor,
                 ),
               )
             : title.text.bold.xl

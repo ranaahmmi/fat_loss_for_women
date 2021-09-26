@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         title: '30 Day Fitness For Men',
         theme: ThemeData(
           fontFamily: 'SfPro',
-          primarySwatch: Colors.orange,
+          primarySwatch: Colors.pink,
         ).copyWith(
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: <TargetPlatform, PageTransitionsBuilder>{

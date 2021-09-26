@@ -86,29 +86,50 @@ class _PlanDetailScreenState extends State<PlanDetailScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          widget.workoutPlan.challengeDuration!.text
-                              .size(48.sp)
-                              .color(AppColors.white)
-                              .make(),
-                          Container(
-                            height: 10,
-                            width: 2,
-                            color: AppColors.TextColorLight,
-                          ),
                           widget.workoutPlan.planType!.text
                               .size(48.sp)
+                              .underline
                               .capitalize
                               .color(AppColors.white)
                               .make(),
-                          Container(
-                            height: 10,
-                            width: 2,
-                            color: AppColors.TextColorLight,
+                          // Container(
+                          //   height: 10,
+                          //   width: 2,
+                          //   color: AppColors.TextColorLight,
+                          // ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_today_outlined,
+                                color: Color(0xFFD4FE1A),
+                                size: 60.h,
+                              ).pOnly(left: 54.w),
+                              26.w.widthBox,
+                              widget.workoutPlan.challengeDuration!.text
+                                  .size(48.sp)
+                                  .color(AppColors.white)
+                                  .make(),
+                            ],
                           ),
-                          widget.workoutPlan.planLevel!.text
-                              .size(48.sp)
-                              .color(AppColors.white)
-                              .make(),
+                          // Container(
+                          //   height: 10,
+                          //   width: 2,
+                          //   color: AppColors.TextColorLight,
+                          // ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.signal_cellular_alt_rounded,
+                                color: getColor(widget.workoutPlan.planLevel!),
+                                size: 60.h,
+                              ).pOnly(left: 54.w),
+                              26.w.widthBox,
+                              widget.workoutPlan.planLevel!.text
+                                  .size(48.sp)
+                                  .color(AppColors.white)
+                                  .make(),
+                            ],
+                          ),
                         ],
                       ).px(200.w),
                       73.h.heightBox,

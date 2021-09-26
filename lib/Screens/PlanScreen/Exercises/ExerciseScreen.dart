@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fat_loss_for_women/Screens/PlanScreen/Exercises/ExerciseDoneScreen.dart';
 import 'package:fat_loss_for_women/Shared/CustomButtons.dart';
+import 'package:fat_loss_for_women/Shared/PageAnimation.dart';
 import 'package:fat_loss_for_women/plugins/Ads.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
@@ -13,11 +15,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExercisePage extends StatefulWidget {
+  final bool islast;
   final int? workout;
   final Exercise? exercise;
   final ExerciseId? exerciseIds;
 
-  const ExercisePage({Key? key, this.exercise, this.exerciseIds, this.workout})
+  const ExercisePage(
+      {Key? key,
+      this.exercise,
+      this.exerciseIds,
+      this.workout,
+      this.islast = false})
       : super(key: key);
 
   @override
@@ -43,6 +51,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.islast);
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
@@ -133,82 +142,35 @@ class _ExercisePageState extends State<ExercisePage> {
             ),
           ),
           Positioned(
-              bottom: 0,
-              child: Container(
-                color: AppColors.white,
-                child: Center(
-                  child: CustomChildButton(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/icons/double_tick.png',
-                          color: AppColors.white,
-                          height: 50.h,
-                        ),
-                        66.w.widthBox,
-                        'Mark As Complete'
-                            .text
-                            .bold
-                            .color(AppColors.white)
-                            .size(56.sp)
-                            .make()
-                      ],
-                    ),
-                    onpressed: () async {
-                      FirebaseAnalytics().logEvent(
-                          name: 'Exercise_Done',
-                          parameters: {'Exercise_id': widget.exercise!.id});
-                      if (widget.exerciseIds != null) {
-                        final daoExerciseProgress =
-                            context.read(exerciseProgressDao);
-                        ExerciseProgres exerciseProgres = ExerciseProgres(
-                            planid: widget.exerciseIds!.planid,
-                            weekid: widget.exerciseIds!.weekid,
-                            dayid: widget.exerciseIds!.dayid,
-                            exerciseId: widget.exerciseIds!.exerciseid,
-                            progress: 1);
-                        await daoExerciseProgress
-                            .insertExerciseProgress(exerciseProgres);
-                        final bool isAdShow =
-                            context.read(purchasedProvider).data?.value ??
-                                false;
-                        if (isAdShow) {
-                        } else {}
-                        //   final interstitial = context.read(interstitialAdProvider);
-                        //   if (!interstitial.isAvailable) interstitial.load();
-                        //   if (interstitial.isAvailable) {
-                        //     interstitial.show();
-                        //   }
-                        // }
-                        Navigator.pop(context);
-                      } else {
-                        final daoExerciseProgress =
-                            context.read(exerciseProgressDao);
-                        WorkoutExerciseProgres workoutExercise =
-                            WorkoutExerciseProgres(
-                                progress: 1,
-                                exerciseId: widget.exercise!.id,
-                                workoutid: widget.workout!);
-                        await daoExerciseProgress
-                            .insertWorkoutExerciseProgress(workoutExercise);
+            bottom: 0,
+            child: CustomButton(
+              title: 'Mark As Complete',
+              color: Colors.transparent,
+              onpressed: () async {
+                FirebaseAnalytics().logEvent(
+                    name: 'Exercise_Done',
+                    parameters: {'Exercise_id': widget.exercise!.id});
 
-                        // final bool isAdShow =
-                        //     context.read(purchasedProvider).data?.value ?? false;
-                        // if (isAdShow) {
-                        //   final interstitial = context.read(interstitialAdProvider);
-                        //   if (!interstitial.isAvailable) interstitial.load();
-                        //   if (interstitial.isAvailable) {
-                        //     interstitial.show();
-                        //   }
-                        // }
-                        print(widget.exercise!.id);
-                        Navigator.pop(context);
-                      }
-                    },
-                  ).h(50).py12(),
-                ).px(100.w),
-              ))
+                final daoExerciseProgress = context.read(exerciseProgressDao);
+                ExerciseProgres exerciseProgres = ExerciseProgres(
+                    planid: widget.exerciseIds!.planid,
+                    weekid: widget.exerciseIds!.weekid,
+                    dayid: widget.exerciseIds!.dayid,
+                    exerciseId: widget.exerciseIds!.exerciseid,
+                    progress: 1);
+                await daoExerciseProgress
+                    .insertExerciseProgress(exerciseProgres);
+                final bool isAdShow =
+                    context.read(purchasedProvider).data?.value ?? false;
+                if (widget.islast) {
+                  Navigator.push(
+                      context, SlideRightRoute(page: ExerciseDoneScreen()));
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+            ).h(50).py12().px(100.w),
+          ),
         ],
       ),
     );

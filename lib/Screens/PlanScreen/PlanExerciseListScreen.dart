@@ -138,6 +138,11 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                                                       builder:
                                                           (context) =>
                                                               ExercisePage(
+                                                                islast: index ==
+                                                                        exerciseList.length -
+                                                                            1
+                                                                    ? true
+                                                                    : false,
                                                                 exercise:
                                                                     exerciseList[
                                                                         index],
@@ -166,6 +171,11 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                                                         builder:
                                                             (context) =>
                                                                 ExercisePage(
+                                                                  islast: index ==
+                                                                          exerciseList.length -
+                                                                              1
+                                                                      ? true
+                                                                      : false,
                                                                   exercise:
                                                                       exerciseList[
                                                                           index],
@@ -193,6 +203,11 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                                                         builder:
                                                             (context) =>
                                                                 ExercisePage(
+                                                                  islast: index ==
+                                                                          exerciseList.length -
+                                                                              1
+                                                                      ? true
+                                                                      : false,
                                                                   exercise:
                                                                       exerciseList[
                                                                           index],
@@ -215,6 +230,12 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ExercisePage(
+                                                          islast: index ==
+                                                                  exerciseList
+                                                                          .length -
+                                                                      1
+                                                              ? true
+                                                              : false,
                                                           exercise:
                                                               exerciseList[
                                                                   index],
@@ -503,6 +524,7 @@ class ExerciseCard extends StatelessWidget {
             isdone!
                 ? Image.asset(
                     'assets/icons/double_tick.png',
+                    color: AppColors.primaryColor,
                     height: 50.h,
                   )
                 : Text('')

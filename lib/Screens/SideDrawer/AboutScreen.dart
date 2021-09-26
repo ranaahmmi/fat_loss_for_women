@@ -45,7 +45,7 @@ class _AboutPageState extends State<AboutPage> {
                         ),
                         Text(
                           "Innividio Apps",
-                          style: TextStyle(color: AppColors.colorOrange),
+                          style: TextStyle(color: AppColors.primaryColor),
                         ),
                       ],
                     ),
@@ -65,7 +65,7 @@ class _AboutPageState extends State<AboutPage> {
                         ),
                         Text(
                           "2.0",
-                          style: TextStyle(color: AppColors.colorOrange),
+                          style: TextStyle(color: AppColors.primaryColor),
                         ),
                       ],
                     ),

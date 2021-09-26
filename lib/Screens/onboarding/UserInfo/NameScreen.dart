@@ -47,7 +47,8 @@ class NameScreenState extends State<NameScreen> {
             maxLines: 1,
             maxLength: 20,
             controller: _username,
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.text,
+            textCapitalization: TextCapitalization.sentences,
             style: TextStyle(fontSize: 55.sp, height: 1.4),
             cursorColor: AppColors.primaryColor,
             decoration: InputDecoration(

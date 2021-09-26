@@ -504,7 +504,7 @@ class Alertbox {
         ),
         builder: (context, state) {
           return Container(
-            height: 1010.h,
+            height: 1110.h,
             child: Material(
               child: Container(
                 child: Container(
@@ -534,7 +534,7 @@ class Alertbox {
                         Lottie.asset('assets/Animation/warning_reset.json',
                             height: 250.h),
                         Text(
-                          "Are you sure you want to reset all your current progress?",
+                          "Are you sure you want to reset all your current\nprogress?",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: AppColors.TextColorLight,

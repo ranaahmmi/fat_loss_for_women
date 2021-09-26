@@ -151,6 +151,7 @@ class GoalScreenState extends State<GoalScreen> {
                     ),
                     Image.asset(
                       'assets/icons/Polygon 2.png',
+                      color: AppColors.primaryColor,
                       height: 10,
                     ),
                   ],

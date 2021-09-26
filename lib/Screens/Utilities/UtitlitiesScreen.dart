@@ -235,6 +235,7 @@ class UtilitiesCard extends StatelessWidget {
           children: [
             Image.asset(
               imgUrl,
+              color: AppColors.primaryColor,
               height: 79.h,
               width: 78.24.w,
             ),

@@ -717,6 +717,7 @@ class PremiumDoneList extends StatelessWidget {
       children: [
         Image.asset(
           'assets/icons/ProTick.png',
+          color: AppColors.primaryColor,
           height: 66.h,
         ),
         88.w.widthBox,

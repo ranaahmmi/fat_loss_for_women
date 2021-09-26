@@ -103,26 +103,30 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         ],
                       ).pOnly(left: 60.w),
                     ).px(70.w).pOnly(bottom: 50.h).onTap(() async {
+                      FirebaseAnalytics().logEvent(
+                          name: 'Diet_Plan_Open',
+                          parameters: {
+                            'Diet_Plan_name': planScreen[index].title
+                          });
                       if (isAdShow) {
                         final interstitial =
                             context.read(interstitialAdProvider);
                         if (!interstitial.isAvailable) {
                           interstitial.load();
                           if (index == 2) {
-                            FirebaseAnalytics().logEvent(
-                                name: 'Diet_Plan_Open',
-                                parameters: {
-                                  'Diet_Plan_name': planScreen[index].title
-                                });
-
-                            Navigator.push(
-                                context, SlideRightRoute(page: ProScreen()));
+                            if (isAdShow) {
+                              Navigator.push(
+                                  context, SlideRightRoute(page: ProScreen()));
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => DietPlanDayScreen(
+                                            istitle: true,
+                                            dietPlan: planScreen[index],
+                                          )));
+                            }
                           } else {
-                            FirebaseAnalytics().logEvent(
-                                name: 'Diet_Plan_Open',
-                                parameters: {
-                                  'Diet_Plan_name': planScreen[index].title
-                                });
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -133,20 +137,19 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         } else {
                           await interstitial.show();
                           if (index == 2) {
-                            FirebaseAnalytics().logEvent(
-                                name: 'Diet_Plan_Open',
-                                parameters: {
-                                  'Diet_Plan_name': planScreen[index].title
-                                });
-
-                            Navigator.push(
-                                context, SlideRightRoute(page: ProScreen()));
+                            if (isAdShow) {
+                              Navigator.push(
+                                  context, SlideRightRoute(page: ProScreen()));
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => DietPlanDayScreen(
+                                            istitle: true,
+                                            dietPlan: planScreen[index],
+                                          )));
+                            }
                           } else {
-                            FirebaseAnalytics().logEvent(
-                                name: 'Diet_Plan_Open',
-                                parameters: {
-                                  'Diet_Plan_name': planScreen[index].title
-                                });
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -157,20 +160,19 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         }
                       } else {
                         if (index == 2) {
-                          FirebaseAnalytics().logEvent(
-                              name: 'Diet_Plan_Open',
-                              parameters: {
-                                'Diet_Plan_name': planScreen[index].title
-                              });
-
-                          Navigator.push(
-                              context, SlideRightRoute(page: ProScreen()));
+                          if (isAdShow) {
+                            Navigator.push(
+                                context, SlideRightRoute(page: ProScreen()));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => DietPlanDayScreen(
+                                          istitle: true,
+                                          dietPlan: planScreen[index],
+                                        )));
+                          }
                         } else {
-                          FirebaseAnalytics().logEvent(
-                              name: 'Diet_Plan_Open',
-                              parameters: {
-                                'Diet_Plan_name': planScreen[index].title
-                              });
                           Navigator.push(
                               context,
                               MaterialPageRoute(

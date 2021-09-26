@@ -81,7 +81,8 @@ class _DietPlanDayScreenState extends State<DietPlanDayScreen> {
               if (widget.istitle) {
                 return Column(
                   children: [
-                    if (index == 0) NativeAdsFull().pOnly(bottom: 100.h),
+                    if (index == 0 && isAdShow)
+                      NativeAdsFull().pOnly(bottom: 100.h),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

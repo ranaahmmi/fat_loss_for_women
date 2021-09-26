@@ -177,8 +177,8 @@ final FutureProviderFamily<List<Exercise>, Day>?
 
 final purchasedProvider = StreamProvider<bool>((ref) {
   final a = ref.read(userDao).getUser();
-  return a.map((event) => event.ip!);
-  // return a.map((event) => false);
+  // return a.map((event) => event.ip!);
+  return a.map((event) => false);
 });
 
 /// ads Section

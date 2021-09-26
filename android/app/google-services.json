@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244344807430:android:2c0d99eee12bf9c23de387",
+        "android_client_info": {
+          "package_name": "com.innovidio.fatloss.women"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244344807430-qt5kd1f4p8133ol07t52ibjrqnh5lg14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ0pUMXVRs9tf6SEhkbAmCclcODXG7Eag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244344807430-qt5kd1f4p8133ol07t52ibjrqnh5lg14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
