@@ -51,15 +51,16 @@ class _ExerciseDoneScreenState extends State<ExerciseDoneScreen> {
               context.pop();
             }).px(100.w),
           ),
-          220.h.heightBox,
+          isAdShow ? 50.h.heightBox : 220.h.heightBox,
           Center(
             child: Image.asset(
               'assets/icons/AllExerciseDone.png',
               width: 800.w,
             ),
           ),
-          if (isAdShow) NativeAdsFull(),
-          140.h.heightBox,
+          50.h.heightBox,
+          if (isAdShow) NativeAdBanner(),
+          isAdShow ? 30.h.heightBox : 140.h.heightBox,
           Center(
             child: 'Congratulations, You Have Finished Your Workout'
                 .text
@@ -91,7 +92,7 @@ class _ExerciseDoneScreenState extends State<ExerciseDoneScreen> {
                 .make()
                 .w(1053.w),
           ),
-          300.h.heightBox,
+          isAdShow ? 80.h.heightBox : 250.h.heightBox,
           CustomButton(
             title: 'Back to home',
             onpressed: () async {
@@ -100,7 +101,6 @@ class _ExerciseDoneScreenState extends State<ExerciseDoneScreen> {
                   SlideRightRoute(page: HomeScreen()), (route) => false);
             },
           ).h(50).py12().px(100.w),
-          136.h.heightBox,
         ],
       ),
     );

@@ -17,13 +17,13 @@ class PlanDao extends DatabaseAccessor<AppDatabase> with _$PlanDaoMixin {
 
   Future<List<WorkoutPlan>> getAllWorkoutPlan() => (select(workoutPlans)
         ..orderBy(
-            [(t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc)]))
+            [(t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc)]))
       .get();
 
   Stream<List<WorkoutPlan>> getAllWorkoutPlanwithStrem() =>
       (select(workoutPlans)
             ..orderBy([
-              (t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc)
+              (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc)
             ]))
           .watch();
 

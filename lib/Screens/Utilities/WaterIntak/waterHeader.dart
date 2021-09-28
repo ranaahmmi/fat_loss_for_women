@@ -34,15 +34,31 @@ class WaterHeader extends ConsumerWidget {
                   Stack(alignment: Alignment(0, 0), children: [
                     CircularProgressIndicator(
                       value: water.drinkGlass! / water.totalGlass!,
-                      color: AppColors.blue,
+                      color: Vx.blue300,
                       backgroundColor:
                           AppColors.TextColorLight.withOpacity(0.1),
                     ).wh(150.h, 150.h),
                     Image.asset(
-                      'assets/icons/waterBottle.png',
-                      height: 88.h,
+                      'assets/icons/glass.png',
+                      height: 110.h,
                     ),
-                  ]),
+                    Positioned(
+                      top: 0,
+                      right: 0.w,
+                      child: water.drinkGlass
+                          .toString()
+                          .text
+                          .bold
+                          .white
+                          .sm
+                          .makeCentered()
+                          .p(5.5)
+                          .box
+                          .roundedFull
+                          .blue300
+                          .make(),
+                    )
+                  ]).wh(200.h, 200.h),
                 ],
               ).onTap(() async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -22,4 +22,9 @@ class AppColors {
   static const themeGradient = const LinearGradient(
     colors: const [Color(0xFFFF488F), Color(0xFFFF8AB9)],
   );
+  static const radialGradient = const RadialGradient(
+    focalRadius: .3,
+    stops: [0.3, 1],
+    colors: const [Color(0xFFFF8AB9), AppColors.primaryColor],
+  );
 }

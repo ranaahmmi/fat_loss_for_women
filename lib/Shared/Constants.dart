@@ -10,7 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../Style/Colors.dart';
 
-const String appId = '1d2797e1-939b-424f-bd0c-62dbbb80bd1a';
+const String appId = '7c19926c-0ebf-45f0-9004-3009113bca48';
 const String defaultDate = '2019-01-01T00:00:00';
 const String baseUrl = "https://apps.innovidio.com:8443/gym/api";
 const String errorUrl =

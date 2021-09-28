@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
@@ -32,11 +31,27 @@ class PlanExerciseList extends StatefulWidget {
 }
 
 class _PlanExerciseListState extends State<PlanExerciseList> {
+  late ScrollController _scrollController;
+
+  bool get _isAppBarExpanded {
+    return _scrollController.hasClients &&
+        _scrollController.offset > (700.h - kToolbarHeight);
+  }
+
   @override
   void initState() {
     super.initState();
     adShow();
-    // dayProgress();
+    _scrollController = ScrollController()
+      ..addListener(() {
+        _isAppBarExpanded ? setState(() {}) : setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   bool isAdShow = false;
@@ -55,215 +70,248 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Consumer(builder: (context, watch, child) {
-            final exercis = watch(getExercrisebyplanIDweekIDdayIdProvider!(Day(
-                id: widget.dayID!,
-                weekid: widget.weekID!,
-                planid: widget.planID!)));
-            final dayProgress = watch(getDayProgressByPlanID(Day(
-                        id: widget.dayID!,
-                        weekid: widget.weekID!,
-                        planid: widget.planID!)))
-                    .data
-                    ?.value ??
-                [];
-            Map<String, bool> progressMap = Map();
-            for (DayExercisesProgressTuple item in dayProgress) {
-              String key = "${item.exerciseId}";
-              progressMap[key] = item.progress == 0 ? false : true;
-            }
-            print(progressMap);
-            if (progressMap.isNotEmpty) {
-              Future.delayed(Duration.zero, () async {
-                progressMap.containsValue(false)
-                    ? isShowSheet = false
-                    : isShowSheet = true;
-              });
-            }
-            return exercis.when(
-                data: (exerciseList) {
-                  return ListView(
-                    children: [
-                      186.h.heightBox,
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Image.asset("assets/icons/back_arrow.png",
-                                height: 56.h, color: AppColors.TextColorLight)
-                            .onTap(() {
-                          Navigator.pop(context);
-                        }),
-                      ).px(110.w),
-                      Image.asset(
-                        'assets/icons/Exercise_vector.png',
-                        height: 485.h,
-                      ).px(50.w),
-                      126.h.heightBox,
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: "Exercises (${exerciseList.length})"
-                            .text
-                            .size(72.sp)
-                            .bold
-                            .color(AppColors.black)
-                            .make(),
-                      ).px(50.w),
-                      221.h.heightBox,
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          itemCount: exerciseList.length,
-                          itemBuilder: (context, index) {
-                            final isdone =
-                                progressMap['${exerciseList[index].id}'];
-
-                            return Column(
+          CustomScrollView(
+              shrinkWrap: true,
+              controller: _scrollController,
+              slivers: <Widget>[
+                SliverAppBar(
+                    expandedHeight: 840.h,
+                    automaticallyImplyLeading: false,
+                    pinned: true,
+                    floating: false,
+                    snap: false,
+                    elevation: 0,
+                    backgroundColor: AppColors.white,
+                    flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: true,
+                      title: !_isAppBarExpanded
+                          ? Text('')
+                          : Row(
                               children: [
-                                if (index % 3 == 0 && index != 0 && isAdShow)
-                                  NativeAdBanner(),
-                                ExerciseCard(
-                                        exercise: exerciseList[index],
-                                        function: () async {
-                                          final interstitial = context
-                                              .read(interstitialAdProvider);
-                                          SharedPreferences prefs =
-                                              await SharedPreferences
-                                                  .getInstance();
-
-                                          if (isAdShow) {
-                                            if (!interstitial.isAvailable) {
-                                              interstitial.load();
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder:
-                                                          (context) =>
-                                                              ExercisePage(
-                                                                islast: index ==
-                                                                        exerciseList.length -
-                                                                            1
-                                                                    ? true
-                                                                    : false,
-                                                                exercise:
-                                                                    exerciseList[
-                                                                        index],
-                                                                exerciseIds: ExerciseId(
-                                                                    dayid: widget
-                                                                        .dayID!,
-                                                                    planid: widget
-                                                                        .planID!,
-                                                                    weekid: widget
-                                                                        .weekID!,
-                                                                    exerciseid:
-                                                                        exerciseList[index]
-                                                                            .id),
-                                                              )));
-                                            } else {
-                                              String _lastTime =
-                                                  (prefs.getString('AdTime') ??
-                                                      DateTime.now()
-                                                          .toIso8601String());
-                                              if (DateTime.parse(_lastTime)
-                                                  .isBefore(DateTime.now())) {
-                                                await interstitial.show();
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder:
-                                                            (context) =>
-                                                                ExercisePage(
-                                                                  islast: index ==
-                                                                          exerciseList.length -
-                                                                              1
-                                                                      ? true
-                                                                      : false,
-                                                                  exercise:
-                                                                      exerciseList[
-                                                                          index],
-                                                                  exerciseIds: ExerciseId(
-                                                                      dayid: widget
-                                                                          .dayID!,
-                                                                      planid: widget
-                                                                          .planID!,
-                                                                      weekid: widget
-                                                                          .weekID!,
-                                                                      exerciseid:
-                                                                          exerciseList[index]
-                                                                              .id),
-                                                                )));
-                                                prefs.setString(
-                                                    'AdTime',
-                                                    DateTime.now()
-                                                        .add(Duration(
-                                                            seconds: 14))
-                                                        .toIso8601String());
-                                              } else {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder:
-                                                            (context) =>
-                                                                ExercisePage(
-                                                                  islast: index ==
-                                                                          exerciseList.length -
-                                                                              1
-                                                                      ? true
-                                                                      : false,
-                                                                  exercise:
-                                                                      exerciseList[
-                                                                          index],
-                                                                  exerciseIds: ExerciseId(
-                                                                      dayid: widget
-                                                                          .dayID!,
-                                                                      planid: widget
-                                                                          .planID!,
-                                                                      weekid: widget
-                                                                          .weekID!,
-                                                                      exerciseid:
-                                                                          exerciseList[index]
-                                                                              .id),
-                                                                )));
-                                              }
-                                            }
-                                          } else {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ExercisePage(
-                                                          islast: index ==
-                                                                  exerciseList
-                                                                          .length -
-                                                                      1
-                                                              ? true
-                                                              : false,
-                                                          exercise:
-                                                              exerciseList[
-                                                                  index],
-                                                          exerciseIds: ExerciseId(
-                                                              dayid:
-                                                                  widget.dayID!,
-                                                              planid: widget
-                                                                  .planID!,
-                                                              weekid: widget
-                                                                  .weekID!,
-                                                              exerciseid:
-                                                                  exerciseList[
-                                                                          index]
-                                                                      .id),
-                                                        )));
-                                          }
-                                        },
-                                        isdone: isdone)
-                                    .px(50.w),
+                                Image.asset("assets/icons/back_arrow.png",
+                                        height: 56.h,
+                                        color: AppColors.TextColorLight)
+                                    .onTap(() {
+                                  Navigator.pop(context);
+                                }),
+                                'All Exercises'
+                                    .text
+                                    .size(68.sp)
+                                    .bold
+                                    .color(AppColors.black)
+                                    .make()
+                                    .px(111.w),
                               ],
-                            );
-                          }),
-                    ],
-                  );
-                },
-                loading: () => loading(color: Colors.red[700]),
-                error: error);
-          }),
+                            ).px(111.w),
+                      background: Container(
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            186.h.heightBox,
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Image.asset("assets/icons/back_arrow.png",
+                                      height: 56.h,
+                                      color: AppColors.TextColorLight)
+                                  .onTap(() {
+                                Navigator.pop(context);
+                              }),
+                            ).px(110.w),
+                            86.h.heightBox,
+                            Center(
+                              child: Image.asset(
+                                'assets/icons/Exercise_vector.png',
+                                height: 485.h,
+                              ).px(50.w),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  Consumer(builder: (context, watch, child) {
+                    final exercis = watch(
+                        getExercrisebyplanIDweekIDdayIdProvider!(Day(
+                            id: widget.dayID!,
+                            weekid: widget.weekID!,
+                            planid: widget.planID!)));
+                    final dayProgress = watch(getDayProgressByPlanID(Day(
+                                id: widget.dayID!,
+                                weekid: widget.weekID!,
+                                planid: widget.planID!)))
+                            .data
+                            ?.value ??
+                        [];
+                    Map<String, bool> progressMap = Map();
+                    for (DayExercisesProgressTuple item in dayProgress) {
+                      String key = "${item.exerciseId}";
+                      progressMap[key] = item.progress == 0 ? false : true;
+                    }
+                    print(progressMap);
+                    if (progressMap.isNotEmpty) {
+                      Future.delayed(Duration.zero, () async {
+                        progressMap.containsValue(false)
+                            ? isShowSheet = false
+                            : isShowSheet = true;
+                      });
+                    }
+                    return exercis.when(
+                        data: (exerciseList) {
+                          return ListView(
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            children: [
+                              106.h.heightBox,
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: "Exercises (${exerciseList.length})"
+                                    .text
+                                    .size(72.sp)
+                                    .bold
+                                    .color(AppColors.black)
+                                    .make(),
+                              ).px(50.w),
+                              121.h.heightBox,
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: exerciseList.length,
+                                  itemBuilder: (context, index) {
+                                    final isdone = progressMap[
+                                        '${exerciseList[index].id}'];
+
+                                    return Column(
+                                      children: [
+                                        if (index % 3 == 0 &&
+                                            index != 0 &&
+                                            isAdShow)
+                                          NativeAdBanner(),
+                                        ExerciseCard(
+                                                exercise: exerciseList[index],
+                                                function: () async {
+                                                  final interstitial =
+                                                      context.read(
+                                                          interstitialAdProvider);
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+
+                                                  if (isAdShow) {
+                                                    if (!interstitial
+                                                        .isAvailable) {
+                                                      interstitial.load();
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      ExercisePage(
+                                                                        islast: index ==
+                                                                            exerciseList.length -
+                                                                                1,
+                                                                        exercise:
+                                                                            exerciseList[index],
+                                                                        exerciseIds: ExerciseId(
+                                                                            dayid:
+                                                                                widget.dayID!,
+                                                                            planid: widget.planID!,
+                                                                            weekid: widget.weekID!,
+                                                                            exerciseid: exerciseList[index].id),
+                                                                      )));
+                                                    } else {
+                                                      String _lastTime = (prefs
+                                                              .getString(
+                                                                  'AdTime') ??
+                                                          DateTime.now()
+                                                              .toIso8601String());
+                                                      if (DateTime.parse(
+                                                              _lastTime)
+                                                          .isBefore(
+                                                              DateTime.now())) {
+                                                        await interstitial
+                                                            .show();
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        ExercisePage(
+                                                                          islast:
+                                                                              index == exerciseList.length - 1,
+                                                                          exercise:
+                                                                              exerciseList[index],
+                                                                          exerciseIds: ExerciseId(
+                                                                              dayid: widget.dayID!,
+                                                                              planid: widget.planID!,
+                                                                              weekid: widget.weekID!,
+                                                                              exerciseid: exerciseList[index].id),
+                                                                        )));
+                                                        prefs.setString(
+                                                            'AdTime',
+                                                            DateTime.now()
+                                                                .add(Duration(
+                                                                    seconds:
+                                                                        14))
+                                                                .toIso8601String());
+                                                      } else {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        ExercisePage(
+                                                                          islast:
+                                                                              index == exerciseList.length - 1,
+                                                                          exercise:
+                                                                              exerciseList[index],
+                                                                          exerciseIds: ExerciseId(
+                                                                              dayid: widget.dayID!,
+                                                                              planid: widget.planID!,
+                                                                              weekid: widget.weekID!,
+                                                                              exerciseid: exerciseList[index].id),
+                                                                        )));
+                                                      }
+                                                    }
+                                                  } else {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    ExercisePage(
+                                                                      islast: index ==
+                                                                          exerciseList.length -
+                                                                              1,
+                                                                      exercise:
+                                                                          exerciseList[
+                                                                              index],
+                                                                      exerciseIds: ExerciseId(
+                                                                          dayid: widget
+                                                                              .dayID!,
+                                                                          planid: widget
+                                                                              .planID!,
+                                                                          weekid: widget
+                                                                              .weekID!,
+                                                                          exerciseid:
+                                                                              exerciseList[index].id),
+                                                                    )));
+                                                  }
+                                                },
+                                                isdone: isdone)
+                                            .px(50.w),
+                                      ],
+                                    );
+                                  }),
+                            ],
+                          );
+                        },
+                        loading: () => loading(color: Colors.red[700]),
+                        error: error);
+                  }),
+                ]))
+              ]),
           if (isShowSheet)
             Opacity(
               child: ModalBarrier(
@@ -524,8 +572,8 @@ class ExerciseCard extends StatelessWidget {
             isdone!
                 ? Image.asset(
                     'assets/icons/double_tick.png',
-                    color: AppColors.primaryColor,
                     height: 50.h,
+                    color: AppColors.primaryColor,
                   )
                 : Text('')
           ],

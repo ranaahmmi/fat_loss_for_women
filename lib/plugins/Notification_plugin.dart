@@ -168,7 +168,7 @@ class NotificationPlugin {
       const NotificationDetails(
           android: AndroidNotificationDetails('other custom channel id',
               'other custom channel name', 'other custom channel description',
-              icon: 'workout',
+              icon: 'plan',
               largeIcon: const DrawableResourceAndroidBitmap('workout'),
               enableLights: true,
               enableVibration: true,

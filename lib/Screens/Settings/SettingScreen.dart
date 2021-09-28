@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
-import 'package:fat_loss_for_women/Repository/ExerciseRepo.dart';
 import 'package:fat_loss_for_women/Screens/PlanScreen/PlanDetail.dart';
 import 'package:fat_loss_for_women/Screens/ProfileScreen/ProfileSettingScreen.dart';
 import 'package:fat_loss_for_women/Screens/SideDrawer/PrivacyScreen.dart';
@@ -94,7 +93,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       image: (img != null)
                                           ? FileImage(img!)
                                           : AssetImage(
-                                                  "assets/icons/emptyProfile.png")
+                                                  "assets/icons/emptyProfile.jpeg")
                                               as ImageProvider,
                                       fit: BoxFit.cover)),
                             ),

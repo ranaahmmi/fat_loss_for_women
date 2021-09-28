@@ -103,6 +103,7 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
                               children: [
                                 Lottie.asset(
                                   'assets/Animation/waves_bottom.json',
+                                  reverse: true,
                                 ),
                                 Flexible(
                                   child: Container(
@@ -166,6 +167,11 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
                                                 WaterIntakDoneScreen()));
                                     setState(() {});
                                   } else {
+                                    context
+                                        .read(waterIntakeDao)
+                                        .insertWaterIntake(water.copyWith(
+                                            drinkGlass: water.drinkGlass! + 1,
+                                            totalGlass: water.totalGlass! + 3));
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -187,6 +193,11 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
                                                 WaterIntakDoneScreen()));
                                     setState(() {});
                                   } else {
+                                    context
+                                        .read(waterIntakeDao)
+                                        .insertWaterIntake(water.copyWith(
+                                            drinkGlass: water.drinkGlass! + 1,
+                                            totalGlass: water.totalGlass! + 3));
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -209,6 +220,11 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
                                               WaterIntakDoneScreen()));
                                   setState(() {});
                                 } else {
+                                  context
+                                      .read(waterIntakeDao)
+                                      .insertWaterIntake(water.copyWith(
+                                          drinkGlass: water.drinkGlass! + 1,
+                                          totalGlass: water.totalGlass! + 3));
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

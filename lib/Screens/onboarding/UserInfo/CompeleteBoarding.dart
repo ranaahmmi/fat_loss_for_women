@@ -66,10 +66,29 @@ class CompeletboardingState extends State<Compeletboarding> {
         children: [
           Container(
             height: 1500.h,
-            child: Image.asset(
-              'assets/icons/loading_bg.png',
-              width: double.infinity,
-              fit: BoxFit.cover,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: -100,
+                  left: 0,
+                  right: 0,
+                  child: Image.asset(
+                    'assets/icons/login_bg.png',
+                  ),
+                ),
+                // Positioned(
+                //   top: 0,
+                //   left: 0,
+                //   right: 0,
+                // child:
+                Center(
+                  child: Image.asset(
+                    'assets/icons/person_image.png',
+                    height: 1400.h,
+                  ),
+                ),
+                // ),
+              ],
             ),
           ),
           SpinKitThreeBounce(

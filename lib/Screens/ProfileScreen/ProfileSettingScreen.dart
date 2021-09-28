@@ -100,7 +100,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                   image: (img != null)
                                       ? FileImage(img!)
                                       : AssetImage(
-                                              "assets/icons/emptyProfile.png")
+                                              "assets/icons/emptyProfile.jpeg")
                                           as ImageProvider,
                                   fit: BoxFit.cover)),
                         ),

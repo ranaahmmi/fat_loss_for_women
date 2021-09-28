@@ -72,6 +72,13 @@ class _NativeAdsFullState extends State<NativeAdsFull>
                   TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
               padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
             ),
+             advertiser: AdTextView(
+              style: TextStyle(
+                  fontSize: 48.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.black),
+              maxLines: 1,
+            ),
             button: AdButtonView(
                 elevation: 3,
                 decoration: AdDecoration(
@@ -152,6 +159,13 @@ class _NativeAdBannerState extends State<NativeAdBanner>
                   TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
               padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
             ),
+             advertiser: AdTextView(
+              style: TextStyle(
+                  fontSize: 48.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.black),
+              maxLines: 1,
+            ),
             button: AdButtonView(
                 elevation: 3,
                 decoration: AdDecoration(
@@ -181,11 +195,15 @@ AdLayoutBuilder get fullBuilder => (ratingBar, media, icon, headline,
           media,
           AdLinearLayout(
             children: [
-              icon,
+               icon,
               AdLinearLayout(
-                  gravity: LayoutGravity.right,
+                  gravity: LayoutGravity.left,
                   children: [
-                    attribuition,
+                    AdLinearLayout(
+                        gravity: LayoutGravity.center,
+                        orientation: HORIZONTAL,
+                        elevation: 0,
+                        children: [attribuition, advertiser]),
                     headline,
                     body,
                   ],
@@ -214,11 +232,15 @@ AdLayoutBuilder get bannarAdBuilder => (ratingBar, media, icon, headline,
         children: [
           AdLinearLayout(
             children: [
-              icon,
+                icon,
               AdLinearLayout(
-                  gravity: LayoutGravity.right,
+                  gravity: LayoutGravity.left,
                   children: [
-                    attribuition,
+                    AdLinearLayout(
+                        gravity: LayoutGravity.center,
+                        orientation: HORIZONTAL,
+                        elevation: 0,
+                        children: [attribuition, advertiser]),
                     headline,
                     body,
                   ],
