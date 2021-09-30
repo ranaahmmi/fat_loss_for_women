@@ -146,91 +146,39 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
                                     .size(52.sp)
                                     .color(AppColors.TextColorLight)
                                     .make(),
+                                80.h.heightBox,
+                                'Tap to drink water'
+                                    .text
+                                    .size(64.sp)
+                                    .bold
+                                    .color(AppColors.blue)
+                                    .make(),
                               ],
                             ).pOnly(bottom: 200.h).onInkTap(() async {
-                              final interstitial =
-                                  context.read(interstitialAdProvider);
                               await Future.delayed(Duration(milliseconds: 600));
-                              if (isAdShow) {
-                                if (!interstitial.isAvailable) {
-                                  interstitial.load();
-                                  if (water.drinkGlass! < water.totalGlass!) {
-                                    context
-                                        .read(waterIntakeDao)
-                                        .insertWaterIntake(water.copyWith(
-                                            drinkGlass: water.drinkGlass! + 1));
 
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                WaterIntakDoneScreen()));
-                                    setState(() {});
-                                  } else {
-                                    context
-                                        .read(waterIntakeDao)
-                                        .insertWaterIntake(water.copyWith(
-                                            drinkGlass: water.drinkGlass! + 1,
-                                            totalGlass: water.totalGlass! + 3));
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                WaterIntakDoneScreen()));
-                                  }
-                                } else {
-                                  await interstitial.show();
-                                  if (water.drinkGlass! < water.totalGlass!) {
-                                    context
-                                        .read(waterIntakeDao)
-                                        .insertWaterIntake(water.copyWith(
-                                            drinkGlass: water.drinkGlass! + 1));
-
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                WaterIntakDoneScreen()));
-                                    setState(() {});
-                                  } else {
-                                    context
-                                        .read(waterIntakeDao)
-                                        .insertWaterIntake(water.copyWith(
-                                            drinkGlass: water.drinkGlass! + 1,
-                                            totalGlass: water.totalGlass! + 3));
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                WaterIntakDoneScreen()));
-                                  }
-                                }
+                              if (water.drinkGlass! < water.totalGlass!) {
+                                context.read(waterIntakeDao).insertWaterIntake(
+                                    water.copyWith(
+                                        drinkGlass: water.drinkGlass! + 1));
+                                await Future.delayed(
+                                    Duration(milliseconds: 600));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            WaterIntakDoneScreen()));
+                                setState(() {});
                               } else {
-                                if (water.drinkGlass! < water.totalGlass!) {
-                                  context
-                                      .read(waterIntakeDao)
-                                      .insertWaterIntake(water.copyWith(
-                                          drinkGlass: water.drinkGlass! + 1));
-                                  await Future.delayed(
-                                      Duration(milliseconds: 600));
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              WaterIntakDoneScreen()));
-                                  setState(() {});
-                                } else {
-                                  context
-                                      .read(waterIntakeDao)
-                                      .insertWaterIntake(water.copyWith(
-                                          drinkGlass: water.drinkGlass! + 1,
-                                          totalGlass: water.totalGlass! + 3));
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              WaterIntakDoneScreen()));
-                                }
+                                context.read(waterIntakeDao).insertWaterIntake(
+                                    water.copyWith(
+                                        drinkGlass: water.drinkGlass! + 1,
+                                        totalGlass: water.totalGlass! + 3));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            WaterIntakDoneScreen()));
                               }
                             }),
                           )
@@ -525,15 +473,16 @@ class WaterintakeSheet {
   setWaternotification(
       {required TimeOfDay sleeptime, required int reminderInterval}) async {
     int id = 100;
-    int hours = 6;
+    int hours = 8;
+    print(sleeptime.hour);
     loop:
-    for (var i = 0; hours < sleeptime.hour; i++) {
-      print("id:$id  time:${hours + reminderInterval}");
+    for (var i = 0; hours <= sleeptime.hour; i++) {
+      print("time:$hours");
       await NotificationPlugin().timeToDrinkWaterDailyNotification(
           id,
           'It’s time to hydrate!',
           'Drinking water increases more \ncalories burning.',
-          sleeptime.hour + i,
+          hours,
           sleeptime.minute);
       hours += reminderInterval;
       if (id == 20) break loop;

@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:fat_loss_for_women/InApp/ConsumableStore.dart';
@@ -36,7 +37,7 @@ class _ProScreenState extends State<ProScreen> {
   List<ProductDetails> _products = [];
   List<PurchaseDetails> _purchases = [];
   List<String?> _consumables = [];
-  bool _isAvailable = true;
+  bool _isAvailable = false;
   bool _purchasePending = false;
   bool _loading = false;
   late String? _queryProductError;
@@ -48,16 +49,16 @@ class _ProScreenState extends State<ProScreen> {
       name: 'Premium_Screen_View',
     );
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    // final Stream<List<PurchaseDetails>> purchaseUpdated =
-    //     _inAppPurchase.purchaseStream;
-    // _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-    //   _listenToPurchaseUpdated(purchaseDetailsList);
-    // }, onDone: () {
-    //   _subscription.cancel();
-    // }, onError: (error) {
-    //   // handle error here.
-    // });
-    // initStoreInfo();
+    final Stream<List<PurchaseDetails>> purchaseUpdated =
+        _inAppPurchase.purchaseStream;
+    _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+      _listenToPurchaseUpdated(purchaseDetailsList);
+    }, onDone: () {
+      _subscription.cancel();
+    }, onError: (error) {
+      // handle error here.
+    });
+    initStoreInfo();
   }
 
   Future<void> initStoreInfo() async {
@@ -76,7 +77,7 @@ class _ProScreenState extends State<ProScreen> {
     }
 
     ProductDetailsResponse productDetailResponse =
-        await _inAppPurchase.queryProductDetails(["inappsku"].toSet());
+        await _inAppPurchase.queryProductDetails([item1m].toSet());
     if (productDetailResponse.error != null) {
       setState(() {
         _queryProductError = productDetailResponse.error!.message;
@@ -118,7 +119,7 @@ class _ProScreenState extends State<ProScreen> {
 
   @override
   void dispose() {
-    // _subscription.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 
@@ -137,10 +138,19 @@ class _ProScreenState extends State<ProScreen> {
                     right: 0,
                     child: Image.asset('assets/icons/Premium_Back.png')),
                 Positioned(
-                    top: 223.h,
+                  top: 155.h,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                      child: Lottie.asset('assets/Animation/premium.json',
+                          height: 898.h)),
+                ),
+                Positioned(
+                    top: 1050.h,
                     left: 0,
                     right: 0,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         'Upgrade to Premium'
                             .text
@@ -149,7 +159,7 @@ class _ProScreenState extends State<ProScreen> {
                             .extraBold
                             .make(),
                         84.h.heightBox,
-                        'Premium Membership Includes'
+                        'Unlimited Access to All Premium Features'
                             .text
                             .size(52.sp)
                             .color(AppColors.primaryColor)
@@ -163,161 +173,224 @@ class _ProScreenState extends State<ProScreen> {
                         95.h.heightBox,
                         PremiumDoneList(title: 'Ultimate diet plans for free'),
                         95.h.heightBox,
-                        Container(
-                          height: 760.h,
-                          child: Center(
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  bottom: 40.h,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                    height: 590.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color:
-                                            AppColors.greyDim.withOpacity(0.2)),
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          left: 0,
-                                          bottom: 0,
-                                          right: context.screenWidth * 0.6,
-                                          child: PrimeCard(
-                                                  height: select == 1
-                                                      ? 670.h
-                                                      : 590.h,
-                                                  discount: '45% off',
-                                                  price: '9.99\$',
-                                                  month: '6 Months',
-                                                  subtitle: '(\$ 1.60/ month)',
-                                                  color: select == 1
-                                                      ? Colors.white
-                                                      : AppColors.greyDim
-                                                          .withOpacity(0.2))
-                                              .onTap(() {
-                                            select = 1;
+                        // Container(
+                        //   height: 760.h,
+                        //   child: Center(
+                        //     child: Stack(
+                        //       children: [
+                        //         Positioned(
+                        //           bottom: 40.h,
+                        //           left: 0,
+                        //           right: 0,
+                        //           child: Container(
+                        //             height: 590.h,
+                        //             decoration: BoxDecoration(
+                        //                 borderRadius: BorderRadius.circular(8),
+                        //                 color:
+                        //                     AppColors.greyDim.withOpacity(0.2)),
+                        //             child: Stack(
+                        //               children: [
+                        //                 Positioned(
+                        //                   left: 0,
+                        //                   bottom: 0,
+                        //                   right: context.screenWidth * 0.6,
+                        //                   child: PrimeCard(
+                        //                           height: select == 1
+                        //                               ? 670.h
+                        //                               : 590.h,
+                        //                           discount: '45% off',
+                        //                           price: '9.99\$',
+                        //                           month: '6 Months',
+                        //                           subtitle: '(\$ 1.60/ month)',
+                        //                           color: select == 1
+                        //                               ? Colors.white
+                        //                               : AppColors.greyDim
+                        //                                   .withOpacity(0.2))
+                        //                       .onTap(() {
+                        //                     select = 1;
+                        //                     setState(() {});
+                        //                   }),
+                        //                 ),
+                        //                 Center(
+                        //                   child: PrimeCard(
+                        //                     height: select == 2 ? 670.h : 590.h,
+                        //                     discount: '0% off',
+                        //                     price: '1.99\$',
+                        //                     month: '1 Months',
+                        //                     subtitle: '  ',
+                        //                     color: select == 2
+                        //                         ? Colors.white
+                        //                         : AppColors.greyDim
+                        //                             .withOpacity(0.2),
+                        //                   ).onTap(() {
+                        //                     select = 2;
+                        //                     setState(() {});
+                        //                   }),
+                        //                 ),
+                        //                 Positioned(
+                        //                   right: 0,
+                        //                   bottom: 0,
+                        //                   child: PrimeCard(
+                        //                     height: select == 3 ? 670.h : 590.h,
+                        //                     discount: '60% off',
+                        //                     price: '18.99\$',
+                        //                     month: '1 Year',
+                        //                     subtitle: '(\$ 1.58/ month)',
+                        //                     color: select == 3
+                        //                         ? Colors.white
+                        //                         : AppColors.greyDim
+                        //                             .withOpacity(0.2),
+                        //                   ).onTap(() {
+                        //                     select = 3;
+                        //                     setState(() {});
+                        //                   }),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ).px(58.w),
+                        //         ),
+                        //         AnimatedPositioned(
+                        //             duration: Duration(milliseconds: 400),
+                        //             bottom: 0,
+                        //             left: select == 2
+                        //                 ? 0
+                        //                 : select == 1
+                        //                     ? 1
+                        //                     : context.screenWidth * 0.64,
+                        //             right: select == 2
+                        //                 ? 0
+                        //                 : select == 1
+                        //                     ? context.screenWidth * 0.64
+                        //                     : 0,
+                        //             child: Center(
+                        //               child: Container(
+                        //                 height: 721.h,
+                        //                 width: 493.w,
+                        //                 decoration: BoxDecoration(
+                        //                     borderRadius:
+                        //                         BorderRadius.circular(8),
+                        //                     border: Border.all(
+                        //                         color: AppColors.primaryColor,
+                        //                         width: 1)),
+                        //               ),
+                        //             ).px(5)),
+                        //         AnimatedPositioned(
+                        //             duration: Duration(milliseconds: 400),
+                        //             top: 0,
+                        //             left: select == 2
+                        //                 ? 0
+                        //                 : select == 1
+                        //                     ? 1
+                        //                     : context.screenWidth * 0.64,
+                        //             right: select == 2
+                        //                 ? 0
+                        //                 : select == 1
+                        //                     ? context.screenWidth * 0.64
+                        //                     : 0,
+                        //             child: Center(
+                        //               child: Container(
+                        //                 height: 101.h,
+                        //                 width: 407.w,
+                        //                 decoration: BoxDecoration(
+                        //                     color: AppColors.primaryColor,
+                        //                     borderRadius:
+                        //                         BorderRadius.circular(8),
+                        //                     border: Border.all(
+                        //                         color: AppColors.Adcolor,
+                        //                         width: 1)),
+                        //                 child: Text(select == 2
+                        //                         ? 'Best Value'
+                        //                         : select == 1
+                        //                             ? 'Gold'
+                        //                             : 'Platinum')
+                        //                     .text
+                        //                     .size(46.sp)
+                        //                     .color(AppColors.white)
+                        //                     .extraBold
+                        //                     .makeCentered(),
+                        //               ).px(43.w),
+                        //             ).px(5))
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
 
-                                            setState(() {});
-                                          }),
-                                        ),
-                                        Center(
-                                          child: PrimeCard(
-                                            height: select == 2 ? 670.h : 590.h,
-                                            discount: '0% off',
-                                            price: '1.99\$',
-                                            month: '1 Months',
-                                            subtitle: '  ',
-                                            color: select == 2
-                                                ? Colors.white
-                                                : AppColors.greyDim
-                                                    .withOpacity(0.2),
-                                          ).onTap(() {
-                                            select = 2;
-
-                                            setState(() {});
-                                          }),
-                                        ),
-                                        Positioned(
-                                          right: 0,
-                                          bottom: 0,
-                                          child: PrimeCard(
-                                            height: select == 3 ? 670.h : 590.h,
-                                            discount: '60% off',
-                                            price: '18.99\$',
-                                            month: '1 Year',
-                                            subtitle: '(\$ 1.58/ month)',
-                                            color: select == 3
-                                                ? Colors.white
-                                                : AppColors.greyDim
-                                                    .withOpacity(0.2),
-                                          ).onTap(() {
-                                            select = 3;
-
-                                            setState(() {});
-                                          }),
-                                        ),
-                                      ],
-                                    ),
-                                  ).px(58.w),
-                                ),
-                                AnimatedPositioned(
-                                    duration: Duration(milliseconds: 400),
-                                    bottom: 0,
-                                    left: select == 2
-                                        ? 0
-                                        : select == 1
-                                            ? 1
-                                            : context.screenWidth * 0.64,
-                                    right: select == 2
-                                        ? 0
-                                        : select == 1
-                                            ? context.screenWidth * 0.64
-                                            : 0,
-                                    child: Center(
-                                      child: Container(
-                                        height: 721.h,
-                                        width: 493.w,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                                color: AppColors.primaryColor,
-                                                width: 1)),
-                                      ),
-                                    ).px(5)),
-                                AnimatedPositioned(
-                                    duration: Duration(milliseconds: 400),
-                                    top: 0,
-                                    left: select == 2
-                                        ? 0
-                                        : select == 1
-                                            ? 1
-                                            : context.screenWidth * 0.64,
-                                    right: select == 2
-                                        ? 0
-                                        : select == 1
-                                            ? context.screenWidth * 0.64
-                                            : 0,
-                                    child: Center(
-                                      child: Container(
-                                        height: 101.h,
-                                        width: 407.w,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                                color: AppColors.Adcolor,
-                                                width: 1)),
-                                        child: Text(select == 2
-                                                ? 'Best Value'
-                                                : select == 1
-                                                    ? 'Gold'
-                                                    : 'Platinum')
-                                            .text
-                                            .size(46.sp)
-                                            .color(AppColors.white)
-                                            .extraBold
-                                            .makeCentered(),
-                                      ).px(43.w),
-                                    ).px(5))
-                              ],
-                            ),
-                          ),
-                        ),
-                        103.h.heightBox,
-                        'Subscription will automatically renewed after Mentioned time period.'
+                        83.h.heightBox,
+                        'Pay 9.99\$ and get premium for Lifetime'
                             .text
                             .center
                             .size(52.sp)
                             .color(AppColors.TextColorLight)
                             .make()
                             .w(942.w),
-                        103.h.heightBox,
+                        143.h.heightBox,
                         CustomChildButton(
-                            onpressed: () {},
+                            onpressed: () async {
+                              if (_isAvailable) {
+                                if (_products.length != 0) {
+                                  Map<String, PurchaseDetails> purchases =
+                                      Map.fromEntries(_purchases
+                                          .map((PurchaseDetails purchase) {
+                                    if (purchase.pendingCompletePurchase) {
+                                      _inAppPurchase.completePurchase(purchase);
+                                    }
+                                    return MapEntry<String, PurchaseDetails>(
+                                        purchase.productID, purchase);
+                                  }));
+                                  PurchaseParam purchaseParam;
+
+                                  // print(_products);
+                                  ProductDetails productDetails = _products[0];
+
+                                  if (Platform.isAndroid) {
+                                    final oldSubscription = _getOldSubscription(
+                                        productDetails, purchases);
+
+                                    purchaseParam = GooglePlayPurchaseParam(
+                                        productDetails: productDetails,
+                                        applicationUserName: null,
+                                        changeSubscriptionParam:
+                                            (oldSubscription != null)
+                                                ? ChangeSubscriptionParam(
+                                                    oldPurchaseDetails:
+                                                        oldSubscription,
+                                                    prorationMode: ProrationMode
+                                                        .immediateWithTimeProration,
+                                                  )
+                                                : null);
+                                  } else {
+                                    purchaseParam = PurchaseParam(
+                                      productDetails: productDetails,
+                                      applicationUserName: null,
+                                    );
+                                  }
+
+                                  if (productDetails.id == 'kConsumableId') {
+                                    _inAppPurchase.buyConsumable(
+                                        purchaseParam: purchaseParam,
+                                        autoConsume: true || Platform.isIOS);
+                                  } else {
+                                    _inAppPurchase.buyNonConsumable(
+                                        purchaseParam: purchaseParam);
+                                  }
+                                } else {
+                                  context.showToast(
+                                      msg:
+                                          'Product Not Avaiable Right Now\nPlease Check After Some Time',
+                                      bgColor: AppColors.primaryColor,
+                                      textColor: Colors.white,
+                                      textSize: 48.sp,
+                                      position: VxToastPosition.top);
+                                }
+                              } else {
+                                context.showToast(
+                                    msg: 'Store is Not Avaiable',
+                                    bgColor: AppColors.primaryColor,
+                                    textColor: Colors.white,
+                                    textSize: 48.sp,
+                                    position: VxToastPosition.top);
+                              }
+                            },
                             child: Center(
                               child: Stack(
                                 children: [
@@ -375,6 +448,36 @@ class _ProScreenState extends State<ProScreen> {
                         })
                       ],
                     )),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Icon(
+                    Icons.close,
+                    size: 70.h,
+                    color: AppColors.TextColorLight,
+                  ),
+                ).pSymmetric(h: 105.w, v: 130.h).onTap(() async {
+                  final interstitial = context.read(interstitialAdProvider);
+                  final bool isAdShow =
+                      context.read(purchasedProvider).data?.value ?? false;
+                  if (isAdShow) {
+                    if (!interstitial.isAvailable) {
+                      interstitial.load();
+                      Navigator.of(context).pushAndRemoveUntil(
+                          SlideBouttomRoute(page: HomeScreen()),
+                          (route) => false);
+                    } else {
+                      await interstitial.show();
+                      Navigator.of(context).pushAndRemoveUntil(
+                          SlideBouttomRoute(page: HomeScreen()),
+                          (route) => false);
+                    }
+                  } else {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        SlideBouttomRoute(page: HomeScreen()),
+                        (route) => false);
+                  }
+                }),
+
                 // _isAvailable
                 //     ? Column(
                 //         mainAxisSize: MainAxisSize.max,
@@ -413,7 +516,6 @@ class _ProScreenState extends State<ProScreen> {
                 //             // final interstitalAd = context.read(adServices);
                 //             // final bool isAdShow =
                 //             //     context.read(purchasedProvider).state;
-
                 //             // if (isAdShow &&
                 //             //     await interstitalAd.interstitialAd
                 //             //         .isLoaded()) {
@@ -454,7 +556,6 @@ class _ProScreenState extends State<ProScreen> {
                 //             // final interstitalAd = context.read(adServices);
                 //             // final bool isAdShow =
                 //             //     context.read(purchasedProvider).state;
-
                 //             // if (isAdShow &&
                 //             //     await interstitalAd.interstitialAd
                 //             //         .isLoaded()) {
@@ -504,6 +605,7 @@ class _ProScreenState extends State<ProScreen> {
     }));
     _products = _products.sortedBy((a, b) =>
         getintFromString(a.price).compareTo(getintFromString(b.price)));
+
     productList.addAll(_products.map(
       (ProductDetails productDetails) {
         // PurchaseDetails previousPurchase = purchases[productDetails.id];
@@ -584,10 +686,6 @@ class _ProScreenState extends State<ProScreen> {
     GooglePlayPurchaseDetails? oldSubscription;
     if (productDetails.id == item1m && purchases[item1m] != null) {
       oldSubscription = purchases[item1m] as GooglePlayPurchaseDetails;
-    } else if (productDetails.id == item1m && purchases[item3m] != null) {
-      oldSubscription = purchases[item3m] as GooglePlayPurchaseDetails;
-    } else if (productDetails.id == item1y && purchases[item1y] != null) {
-      oldSubscription = purchases[item1y] as GooglePlayPurchaseDetails;
     }
     return oldSubscription;
   }
@@ -714,6 +812,7 @@ class PremiumDoneList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Image.asset(
           'assets/icons/ProTick.png',
@@ -723,6 +822,6 @@ class PremiumDoneList extends StatelessWidget {
         88.w.widthBox,
         title.text.size(56.sp).color(AppColors.black).make(),
       ],
-    ).pOnly(left: 123.w);
+    ).w(855.w).pOnly(left: 40.w);
   }
 }

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
 import 'package:fat_loss_for_women/Screens/PlanScreen/PlanDetail.dart';
 import 'package:fat_loss_for_women/Screens/ProfileScreen/ProfileSettingScreen.dart';
-import 'package:fat_loss_for_women/Screens/SideDrawer/PrivacyScreen.dart';
 import 'package:fat_loss_for_women/Screens/Utilities/WaterIntak/WaterIntakScreen.dart';
 import 'package:fat_loss_for_women/Shared/Aleartbox.dart';
 import 'package:fat_loss_for_women/Shared/Constants.dart';
@@ -17,7 +16,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:share/share.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -31,17 +30,27 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   File? img;
+  String version = '0.0.1';
 
   @override
   void initState() {
     super.initState();
     getImage();
+    getVersion();
   }
 
   getImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final imagpath = prefs.getString('profile');
     if (imagpath != null) img = File(imagpath);
+    setState(() {});
+  }
+
+  getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version = packageInfo.version;
+    print(packageInfo.appName);
+    print(packageInfo.packageName);
     setState(() {});
   }
 
@@ -133,43 +142,43 @@ class _SettingScreenState extends State<SettingScreen> {
                         }),
                       ],
                     ),
-                    140.h.heightBox,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        'Set Language'
-                            .text
-                            .size(56.sp)
-                            .color(AppColors.black)
-                            .make(),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            'English (USA)'
-                                .text
-                                .size(48.sp)
-                                .color(AppColors.primaryColor)
-                                .make(),
-                            12.w.widthBox,
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: AppColors.TextColorLight,
-                              size: 80.w,
-                            )
-                          ],
-                        ).onTap(() {
-                          FirebaseAnalytics().logEvent(
-                            name: 'Click_Language',
-                          );
-                          context.showToast(
-                              msg: 'Language Coming Soon',
-                              bgColor: AppColors.primaryColor,
-                              textColor: Colors.white,
-                              textSize: 48.sp,
-                              position: VxToastPosition.top);
-                        }),
-                      ],
-                    ),
+                    // 140.h.heightBox,
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     'Set Language'
+                    //         .text
+                    //         .size(56.sp)
+                    //         .color(AppColors.black)
+                    //         .make(),
+                    //     Row(
+                    //       mainAxisSize: MainAxisSize.min,
+                    //       children: [
+                    //         'English (USA)'
+                    //             .text
+                    //             .size(48.sp)
+                    //             .color(AppColors.primaryColor)
+                    //             .make(),
+                    //         12.w.widthBox,
+                    //         Icon(
+                    //           Icons.arrow_drop_down,
+                    //           color: AppColors.TextColorLight,
+                    //           size: 80.w,
+                    //         )
+                    //       ],
+                    //     ).onTap(() {
+                    //       FirebaseAnalytics().logEvent(
+                    //         name: 'Click_Language',
+                    //       );
+                    //       context.showToast(
+                    //           msg: 'Language Coming Soon',
+                    //           bgColor: AppColors.primaryColor,
+                    //           textColor: Colors.white,
+                    //           textSize: 48.sp,
+                    //           position: VxToastPosition.top);
+                    //     }),
+                    //   ],
+                    // ),
                     160.h.heightBox,
                     'Notifications'
                         .text
@@ -284,46 +293,53 @@ class _SettingScreenState extends State<SettingScreen> {
                         .size(56.sp)
                         .color(AppColors.black)
                         .make()
-                        .onTap(() {
+                        .onTap(() async {
                       FirebaseAnalytics().logEvent(
                         name: 'Privacy_Policy_View',
                       );
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PrivacyPolicyScreen()));
-                    }),
-                    78.h.heightBox,
-                    "Share with Friends"
-                        .text
-                        .size(56.sp)
-                        .color(AppColors.black)
-                        .make()
-                        .onTap(() {
-                      FirebaseAnalytics().logEvent(
-                        name: 'Click_on_Share',
-                      );
-                      Share.share(
-                          'https://play.google.com/store/apps/details?id=com.innovidio.mensfitnesshome');
-                    }),
-                    78.h.heightBox,
-                    "Rate Us"
-                        .text
-                        .size(56.sp)
-                        .color(AppColors.black)
-                        .make()
-                        .onTap(() async {
-                      FirebaseAnalytics().logEvent(
-                        name: 'Click_on_RateUs',
-                      );
                       const url =
-                          'https://play.google.com/store/apps/details?id=com.innovidio.mensfitnesshome';
+                          'https://docs.google.com/document/d/1Lm8hrmLgtQLRnEivcrWejLkt8S7EGmWN7jeRemIu02k/edit?usp=sharing';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
                         throw 'Could not launch $url';
                       }
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => PrivacyPolicyScreen()));
                     }),
+                    // 78.h.heightBox,
+                    // "Share with Friends"
+                    //     .text
+                    //     .size(56.sp)
+                    //     .color(AppColors.black)
+                    //     .make()
+                    //     .onTap(() {
+                    //   FirebaseAnalytics().logEvent(
+                    //     name: 'Click_on_Share',
+                    //   );
+                    //   Share.share(
+                    //       'https://play.google.com/store/apps/details?id=com.innovidio.mensfitnesshome');
+                    // }),
+                    // 78.h.heightBox,
+                    // "Rate Us"
+                    //     .text
+                    //     .size(56.sp)
+                    //     .color(AppColors.black)
+                    //     .make()
+                    //     .onTap(() async {
+                    //   FirebaseAnalytics().logEvent(
+                    //     name: 'Click_on_RateUs',
+                    //   );
+                    //   const url =
+                    //       'https://play.google.com/store/apps/details?id=com.innovidio.mensfitnesshome';
+                    //   if (await canLaunch(url)) {
+                    //     await launch(url);
+                    //   } else {
+                    //     throw 'Could not launch $url';
+                    //   }
+                    // }),
                     78.h.heightBox,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -338,8 +354,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               .read(userDao)
                               .insertUser(user.copyWith(ip: !user.ip!));
                         }),
-                        "0.0.1"
-                            .text
+                        version.text
                             .size(56.sp)
                             .color(AppColors.greyDim)
                             .make(),
@@ -394,7 +409,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           }
                         } else {
                           await Navigator.pushReplacement(
-                          context,
+                            context,
                             SlideRightRoute(
                               page: InitPlanLoading(
                                 plan: WorkoutPlan(id: 1),
@@ -407,8 +422,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         }
                       });
                     }),
-                    125.h.heightBox,
-                    "Logout".text.size(56.sp).color(AppColors.red).make(),
+                    // 125.h.heightBox,
+                    // "Logout".text.size(56.sp).color(AppColors.red).make(),
                     125.h.heightBox,
                   ],
                 ).px(112.w);

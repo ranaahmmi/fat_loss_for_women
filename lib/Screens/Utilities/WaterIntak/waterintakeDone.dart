@@ -51,12 +51,12 @@ class _WaterIntakDoneScreenState extends State<WaterIntakDoneScreen> {
                   Spacer()
                 ],
               ).px(110.w),
-              187.h.heightBox,
+              isAdShow ? 50.h.heightBox : 187.h.heightBox,
               if (isAdShow) NativeAdsFull().px(20.w),
               95.h.heightBox,
               Center(
                   child: Lottie.asset('assets/Animation/well_done.json',
-                      height: 728.h)),
+                      repeat: false, height: 728.h)),
               90.h.heightBox,
               'Water helps with workouts.'
                   .text
@@ -69,8 +69,22 @@ class _WaterIntakDoneScreenState extends State<WaterIntakDoneScreen> {
                 child: CustomButton(
                     color: AppColors.blue,
                     onpressed: () async {
-                      context.pop();
-                      context.pop();
+                      final interstitial = context.read(interstitialAdProvider);
+
+                      if (isAdShow) {
+                        if (!interstitial.isAvailable) {
+                          interstitial.load();
+                          context.pop();
+                          context.pop();
+                        } else {
+                          await interstitial.show();
+                          context.pop();
+                          context.pop();
+                        }
+                      } else {
+                        context.pop();
+                        context.pop();
+                      }
                     },
                     title: 'Done'),
               )

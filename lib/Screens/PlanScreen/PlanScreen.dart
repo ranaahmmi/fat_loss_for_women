@@ -40,7 +40,9 @@ class _PlanScreenState extends State<PlanScreen> {
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       children: [
-        WaterHeader(),
+        WaterHeader(
+          isAdshow: isAdShow,
+        ),
         74.h.heightBox,
         'Best Fat lose\nworkouts for You!'
             .text
@@ -116,7 +118,7 @@ class _PlanScreenState extends State<PlanScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        plan.inAppPurchaseID != null
+                                        plan.inAppPurchaseID != null && isAdShow
                                             ? Image.asset(
                                                 "assets/icons/premium_plans_card_icon.png",
                                                 height: 202.h,

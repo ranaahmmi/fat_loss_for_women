@@ -94,7 +94,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                             shape: BoxShape.circle),
                         child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(99),
+                              borderRadius: BorderRadius.circular(9999),
                               color: Colors.black,
                               image: DecorationImage(
                                   image: (img != null)

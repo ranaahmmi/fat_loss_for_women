@@ -42,7 +42,9 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WaterHeader().px(70.w),
+            WaterHeader(
+              isAdshow: isAdShow,
+            ).px(70.w),
             74.h.heightBox,
             Text(
               "Effective Diet Plans",
@@ -75,7 +77,7 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          index == 2
+                          index == 2 && isAdShow
                               ? Column(
                                   children: [
                                     54.h.heightBox,
@@ -114,18 +116,8 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         if (!interstitial.isAvailable) {
                           interstitial.load();
                           if (index == 2) {
-                            if (isAdShow) {
-                              Navigator.push(
-                                  context, SlideRightRoute(page: ProScreen()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => DietPlanDayScreen(
-                                            istitle: true,
-                                            dietPlan: planScreen[index],
-                                          )));
-                            }
+                            Navigator.push(
+                                context, SlideRightRoute(page: ProScreen()));
                           } else {
                             Navigator.push(
                                 context,
@@ -137,18 +129,8 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         } else {
                           await interstitial.show();
                           if (index == 2) {
-                            if (isAdShow) {
-                              Navigator.push(
-                                  context, SlideRightRoute(page: ProScreen()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => DietPlanDayScreen(
-                                            istitle: true,
-                                            dietPlan: planScreen[index],
-                                          )));
-                            }
+                            Navigator.push(
+                                context, SlideRightRoute(page: ProScreen()));
                           } else {
                             Navigator.push(
                                 context,
@@ -160,18 +142,13 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                         }
                       } else {
                         if (index == 2) {
-                          if (isAdShow) {
-                            Navigator.push(
-                                context, SlideRightRoute(page: ProScreen()));
-                          } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => DietPlanDayScreen(
-                                          istitle: true,
-                                          dietPlan: planScreen[index],
-                                        )));
-                          }
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => DietPlanDayScreen(
+                                        istitle: true,
+                                        dietPlan: planScreen[index],
+                                      )));
                         } else {
                           Navigator.push(
                               context,

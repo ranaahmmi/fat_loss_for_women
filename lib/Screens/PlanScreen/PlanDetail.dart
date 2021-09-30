@@ -180,10 +180,12 @@ class _PlanDetailScreenState extends State<PlanDetailScreen> {
                                         workoutPlan: widget.workoutPlan)));
                           }
                         },
-                        color: widget.workoutPlan.inAppPurchaseID == null
+                        color: widget.workoutPlan.inAppPurchaseID == null ||
+                                !isAdShow
                             ? AppColors.primaryColor
                             : AppColors.Adcolor,
-                        title: widget.workoutPlan.inAppPurchaseID == null
+                        title: widget.workoutPlan.inAppPurchaseID == null ||
+                                !isAdShow
                             ? 'Start Workout'
                             : 'Go Premium')
                     .px(40.w),

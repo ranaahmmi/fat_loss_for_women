@@ -50,7 +50,9 @@ class _ReportScreenState extends State<ReportScreen>
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        WaterHeader().px(5),
+        WaterHeader(
+          isAdshow: isAdShow,
+        ).px(5),
         74.h.heightBox,
         'My Dashboard'
             .text
