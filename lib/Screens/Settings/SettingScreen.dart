@@ -394,7 +394,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           }
                         } else {
                           await Navigator.pushReplacement(
-                            context,
+                          context,
                             SlideRightRoute(
                               page: InitPlanLoading(
                                 plan: WorkoutPlan(id: 1),
