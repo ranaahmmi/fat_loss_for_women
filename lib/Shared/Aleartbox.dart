@@ -589,7 +589,7 @@ class Alertbox {
                   width: context.screenWidth * 0.8,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(3)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -609,64 +609,24 @@ class Alertbox {
                       Spacer(
                         flex: 2,
                       ),
-                      // Container(height: 1000.h, child: NativeAdsFull()),
-                      FittedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MaterialButton(
-                                // FIRST BUTTON IS REQUIRED
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                color: Colors.white,
-                                child: Center(
-                                  child: Row(
-                                    children: [
-                                      Text('Rate Us'),
-                                      27.widthBox,
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.orange,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  const url =
-                                      'https://play.google.com/store/apps/details?id=com.innovidio.life.idle.fitness.gym&hl=None';
-                                  if (await canLaunch(url)) {
-                                    await launch(url);
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                }),
-                            Row(
-                              children: [
-                                MaterialButton(
-                                    // FIRST BUTTON IS REQUIRED
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    color: Colors.white,
-                                    child: Text('NO'),
-                                    onPressed: () =>
-                                        Navigator.pop(context, false)),
-                                10.widthBox,
-                                MaterialButton(
-                                    // OPTIONAL BUTTON
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    color: Colors.white,
-                                    child: Text('Yes'),
-                                    onPressed: () {
-                                      Navigator.pop(context, true);
-                                    }),
-                              ],
-                            ),
-                          ],
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomButton(
+                              width: 500,
+                              height: 155,
+                              title: 'NO',
+                              onpressed: () => Navigator.pop(context, false)),
+                          20.widthBox,
+                          CustomButton(
+                              width: 500,
+                              height: 155,
+                              color: AppColors.greyDim,
+                              title: 'Yes',
+                              onpressed: () {
+                                Navigator.pop(context, true);
+                              }),
+                        ],
                       )
                     ],
                   ).p(10),

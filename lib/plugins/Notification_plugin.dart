@@ -169,7 +169,7 @@ class NotificationPlugin {
           android: AndroidNotificationDetails('other custom channel id',
               'other custom channel name', 'other custom channel description',
               icon: 'workout',
-              largeIcon: DrawableResourceAndroidBitmap('workout'),
+              largeIcon: DrawableResourceAndroidBitmap('workoutbig'),
               enableLights: true,
               enableVibration: true,
               importance: Importance.max,
