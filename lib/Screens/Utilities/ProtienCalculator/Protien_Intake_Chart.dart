@@ -28,40 +28,42 @@ class _ProtienIntakeChartState extends State<ProtienIntakeChart> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            187.h.heightBox,
-            Image.asset(
-              'assets/icons/back_arrow.png',
-              height: 56.54.h,
-              width: 76.98.w,
-            ).p(5).onInkTap(() {
-              context.pop();
-            }),
-            132.h.heightBox,
-            Text(
-              "Protein Intake Chart",
-              style: TextStyle(fontSize: 68.sp, fontWeight: FontWeight.bold),
-            ),
-            117.h.heightBox,
-            Text(
-              "Optimal daily protein intake for healthy, sedentary adults.",
-              style: TextStyle(fontSize: 46.sp),
-              maxLines: 4,
-            ),
-            40.h.heightBox,
-            // if (isAdShow) NativeAdsFull(),
-            80.h.heightBox,
-            Image.asset(
-              "assets/icons/protein_chart.png",
-              height: 1360.h,
-            )
-          ],
-        ).px(109.w),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              187.h.heightBox,
+              Image.asset(
+                'assets/icons/back_arrow.png',
+                height: 56.54.h,
+                width: 76.98.w,
+              ).p(5).onInkTap(() {
+                context.pop();
+              }),
+              132.h.heightBox,
+              Text(
+                "Protein Intake Chart",
+                style: TextStyle(fontSize: 68.sp, fontWeight: FontWeight.bold),
+              ),
+              117.h.heightBox,
+              Text(
+                "Optimal daily protein intake for healthy, sedentary adults.",
+                style: TextStyle(fontSize: 46.sp),
+                maxLines: 4,
+              ),
+              40.h.heightBox,
+              // if (isAdShow) NativeAdsFull(),
+              80.h.heightBox,
+              Image.asset(
+                "assets/icons/protein_chart.png",
+                height: 1360.h,
+              )
+            ],
+          ).px(109.w),
+        ),
       ),
     );
   }
