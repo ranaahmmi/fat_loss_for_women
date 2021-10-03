@@ -52,7 +52,7 @@ class _WaterIntakDoneScreenState extends State<WaterIntakDoneScreen> {
                 ],
               ).px(110.w),
               isAdShow ? 50.h.heightBox : 187.h.heightBox,
-              if (isAdShow) NativeAdsFull().px(20.w),
+              // if (isAdShow) NativeAdsFull().px(20.w),
               95.h.heightBox,
               Center(
                   child: Lottie.asset('assets/Animation/well_done.json',

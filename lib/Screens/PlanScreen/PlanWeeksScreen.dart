@@ -138,7 +138,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                         ],
                       ).px(111.w),
                       40.h.heightBox,
-                      if (isAdShow) NativeAdBanner(),
+                      // if (isAdShow) NativeAdBanner(),
                       112.h.heightBox,
                       widget.workoutPlan.planTitle!.text
                           .size(68.sp)

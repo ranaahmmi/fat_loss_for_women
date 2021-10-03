@@ -53,7 +53,7 @@ class _DietDetailPageState extends State<DietDetailPage> {
                     fontWeight: FontWeight.bold,
                   )).pOnly(left: 103.w),
               77.h.heightBox,
-              if (isAdShow) NativeAdBanner(),
+              // if (isAdShow) NativeAdBanner(),
               50.h.heightBox,
               Image.asset(
                 widget.imageUrl,

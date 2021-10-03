@@ -184,10 +184,10 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
 
                                     return Column(
                                       children: [
-                                        if (index % 3 == 0 &&
-                                            index != 0 &&
-                                            isAdShow)
-                                          NativeAdBanner(),
+                                        // if (index % 3 == 0 &&
+                                        //     index != 0 &&
+                                        //     isAdShow)
+                                        //   NativeAdBanner(),
                                         ExerciseCard(
                                                 exercise: exerciseList[index],
                                                 function: () async {
@@ -337,7 +337,7 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (isAdShow) NativeAdBanner(),
+                        // if (isAdShow) NativeAdBanner(),
                         Expanded(
                           child: Stack(
                             children: [

@@ -55,7 +55,7 @@ class _ProtienIntakeChartState extends State<ProtienIntakeChart> {
                 maxLines: 4,
               ),
               40.h.heightBox,
-              if (isAdShow) NativeAdsFull(),
+              // if (isAdShow) NativeAdsFull(),
               80.h.heightBox,
               Image.asset(
                 "assets/icons/protein_chart.png",

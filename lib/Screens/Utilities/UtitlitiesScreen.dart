@@ -152,7 +152,7 @@ class UtitlitiesScreen extends ConsumerWidget {
                 },
               ).px(113.w),
 
-              if (users.ip!) NativeAdBanner(),
+              // if (users.ip!) NativeAdBanner(),
               50.h.heightBox,
               UtilitiesCard(
                 imgUrl: "assets/icons/calculator_fat.png",

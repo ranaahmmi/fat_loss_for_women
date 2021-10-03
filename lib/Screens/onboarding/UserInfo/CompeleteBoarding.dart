@@ -109,16 +109,16 @@ class CompeletboardingState extends State<Compeletboarding> {
               .color(AppColors.TextColorLight)
               .make(),
           150.h.heightBox,
-          Container(
-                  height: 1000.h,
-                  decoration: BoxDecoration(
-                      // borderRadius:
-                      //     BorderRadius.circular(20),
-                      // border: Border.all(
-                      //     color: Colors.black, width: 0)
-                      ),
-                  child: NativeAdsFull())
-              .px(3.w)
+          // Container(
+          //         height: 1000.h,
+          //         decoration: BoxDecoration(
+          //             // borderRadius:
+          //             //     BorderRadius.circular(20),
+          //             // border: Border.all(
+          //             //     color: Colors.black, width: 0)
+          //             ),
+          //         child: NativeAdsFull())
+          //     .px(3.w)
         ],
       ),
     );

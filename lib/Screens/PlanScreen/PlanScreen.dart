@@ -77,9 +77,9 @@ class _PlanScreenState extends State<PlanScreen> {
 
                     return Column(
                       children: [
-                        (index == 1 || index == 3) && isAdShow
-                            ? NativeAdsFull()
-                            : Text(''),
+                        // (index == 1 || index == 3) && isAdShow
+                        //     ? NativeAdsFull()
+                        //     : Text(''),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
