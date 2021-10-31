@@ -45,13 +45,10 @@ Widget error(Object e, StackTrace? st) {
 }
 
 const String item1m = 'item_1m';
-const String item3m = 'item_3m';
-const String item1y = 'item_1year';
-const List<String> kProductIds = <String>[item1m, item3m, item1y];
+
+const List<String> kProductIds = <String>[item1m];
 
 void printAdDetails(NativeAdController controller) async {
-  /// Just for showcasing the ability to access
-  /// NativeAd's details via its controller.
   print("------- NATIVE AD DETAILS: -------");
   print(controller.headline);
   print(controller.body);
@@ -70,97 +67,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("jkjl");
 }
 
-final List<MainScreenCard> getCardList = [
-  MainScreenCard(
-      title: "ARMS WORKOUTS",
-      image: "assets/images/biceps.webp",
-      subtext: "3 programmes",
-      muscle: armslist,
-      headerImage: 'assets/images/armsheader.webp'),
-  MainScreenCard(
-      title: "ABS WORKOUTS",
-      subtext: "3 programmes",
-      image: "assets/images/abs.webp",
-      headerImage: 'assets/images/absheader.webp',
-      muscle: abslist),
-  MainScreenCard(
-      title: "CHEST WORKOUTS",
-      subtext: "3 programmes",
-      image: "assets/images/chest.webp",
-      headerImage: "assets/images/chestheader.webp",
-      muscle: chestlist),
-  MainScreenCard(
-      title: "BACK WORKOUTS",
-      subtext: "3 programmes",
-      image: "assets/images/back.webp",
-      headerImage: 'assets/images/back.webp',
-      muscle: backlist),
-  MainScreenCard(
-      title: "WINGS WORKOUTS",
-      subtext: "2 programmes",
-      image: "assets/images/wingsworkoutcard.webp",
-      headerImage: 'assets/images/wingsheader.webp',
-      muscle: wingslist),
-  MainScreenCard(
-      title: "LEGS WORKOUTS",
-      subtext: "4 programmes",
-      image: "assets/images/lowerlegs.webp",
-      headerImage: "assets/images/legsheader.webp",
-      muscle: legslist),
-  MainScreenCard(
-      title: "SHOULDERS WORKOUTS",
-      subtext: "3 programmes",
-      image: "assets/images/shoulders.webp",
-      headerImage: "assets/images/shouldersheader.webp",
-      muscle: shoulderslist),
-  MainScreenCard(
-      title: "CARDIO WORKOUTS",
-      subtext: "3 programmes",
-      image: "assets/images/cardioworkoutcard.webp",
-      headerImage: "assets/images/cardioheader.webp",
-      muscle: cardiolist)
-];
-
-List<ExerciseLists> armslist = [
-  ExerciseLists("assets/images/biceps.webp", "Biceps"),
-  ExerciseLists("assets/images/triceps.webp", "Triceps"),
-  ExerciseLists("assets/images/forearm.webp", "Forearm"),
-];
-List<ExerciseLists> abslist = [
-  ExerciseLists("assets/images/upperabs.webp", "Upper Abs"),
-  ExerciseLists("assets/images/lowerabs.webp", "Lower Abs"),
-  ExerciseLists("assets/images/sidecutting.webp", "Side Cutting"),
-];
-List<ExerciseLists> backlist = [
-  ExerciseLists("assets/images/upperback.webp", "Upper Back"),
-  ExerciseLists("assets/images/lowerback.webp", "Lower Back"),
-  ExerciseLists("assets/images/vshapeback.webp", "V-Shape Back"),
-];
-List<ExerciseLists> wingslist = [
-  ExerciseLists("assets/images/vshape.webp", "V-Shape"),
-  ExerciseLists("assets/images/wingsextension.webp", "Wing Extentions"),
-];
-List<ExerciseLists> chestlist = [
-  ExerciseLists("assets/images/upperchest.webp", "Upper Chest"),
-  ExerciseLists("assets/images/middlechest.webp", "Middle Chest"),
-  ExerciseLists("assets/images/lowerchest.webp", "Lower Chest"),
-];
-List<ExerciseLists> legslist = [
-  ExerciseLists("assets/images/frontthighs.webp", "Front Thighs"),
-  ExerciseLists("assets/images/backthighs.webp", "Back Thighs"),
-  ExerciseLists("assets/images/calfs.webp", "Calfs"),
-  ExerciseLists("assets/images/hips.webp", "Hips"),
-];
-List<ExerciseLists> shoulderslist = [
-  ExerciseLists("assets/images/frontshoulder.webp", "Front Shoulders"),
-  ExerciseLists("assets/images/backshoulder.webp", "Back Shoulders"),
-  ExerciseLists("assets/images/traps.webp", "Traps"),
-];
-List<ExerciseLists> cardiolist = [
-  ExerciseLists("assets/images/aerobic.webp", "Aerobic"),
-  ExerciseLists("assets/images/stretching.webp", "Stretching"),
-  ExerciseLists("assets/images/yoga.webp", "Yoga"),
-];
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -200,19 +106,13 @@ String get nativeAdUnitId {
   if (kDebugMode)
     return MobileAds.nativeAdTestUnitId;
   else
-    return MobileAds.nativeAdTestUnitId;
+    return "ca-app-pub-4044308120454547/9437821065";
 }
 
-String get bannerAdUnitId {
-  if (kDebugMode)
-    return MobileAds.bannerAdTestUnitId;
-  else
-    return 'ca-app-pub-4044308120454547/2290215717';
-}
 
 String get interstitialAdUnitId {
   if (kDebugMode)
     return MobileAds.interstitialAdTestUnitId;
   else
-    return MobileAds.interstitialAdTestUnitId;
+    return "ca-app-pub-4044308120454547/7400838755";
 }

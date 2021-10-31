@@ -348,12 +348,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             .text
                             .size(56.sp)
                             .color(AppColors.black)
-                            .make()
-                            .onTap(() {
-                          context
-                              .read(userDao)
-                              .insertUser(user.copyWith(ip: !user.ip!));
-                        }),
+                            .make(),
                         version.text
                             .size(56.sp)
                             .color(AppColors.greyDim)

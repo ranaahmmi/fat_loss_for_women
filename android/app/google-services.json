@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "244344807430",
-    "project_id": "fat-loss-for-men",
-    "storage_bucket": "fat-loss-for-men.appspot.com"
+    "project_number": "277645828588",
+    "project_id": "days-fitness-store",
+    "storage_bucket": "days-fitness-store.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:244344807430:android:91032d0dbe59eb743de387",
+        "mobilesdk_app_id": "1:277645828588:android:cbbcbf64934c086290e0c9",
         "android_client_info": {
-          "package_name": "com.innovidio.fatloss.men"
+          "package_name": "com.thirtydaysfitness.mensfitness"
         }
       },
       "oauth_client": [
         {
-          "client_id": "244344807430-qt5kd1f4p8133ol07t52ibjrqnh5lg14.apps.googleusercontent.com",
+          "client_id": "277645828588-k8gvl4ess1il5orm6qvvce55c4muq2lh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDQ0pUMXVRs9tf6SEhkbAmCclcODXG7Eag"
+          "current_key": "AIzaSyDDENKylhe8-ZMZ2EqNvPMIY9cGiqzkS2A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "244344807430-qt5kd1f4p8133ol07t52ibjrqnh5lg14.apps.googleusercontent.com",
+              "client_id": "277645828588-k8gvl4ess1il5orm6qvvce55c4muq2lh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "277645828588-8j64jt5rrh3hcjols4hufi2huii8p0ao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thirtydaysfitness.mensfitness"
+              }
             }
           ]
         }
@@ -36,28 +43,35 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:244344807430:android:2c0d99eee12bf9c23de387",
+        "mobilesdk_app_id": "1:277645828588:android:af5d03ecc8e451e290e0c9",
         "android_client_info": {
-          "package_name": "com.innovidio.fatloss.women"
+          "package_name": "com.thirtydaysfitness.womenfitness"
         }
       },
       "oauth_client": [
         {
-          "client_id": "244344807430-qt5kd1f4p8133ol07t52ibjrqnh5lg14.apps.googleusercontent.com",
+          "client_id": "277645828588-k8gvl4ess1il5orm6qvvce55c4muq2lh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDQ0pUMXVRs9tf6SEhkbAmCclcODXG7Eag"
+          "current_key": "AIzaSyDDENKylhe8-ZMZ2EqNvPMIY9cGiqzkS2A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "244344807430-qt5kd1f4p8133ol07t52ibjrqnh5lg14.apps.googleusercontent.com",
+              "client_id": "277645828588-k8gvl4ess1il5orm6qvvce55c4muq2lh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "277645828588-8j64jt5rrh3hcjols4hufi2huii8p0ao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thirtydaysfitness.mensfitness"
+              }
             }
           ]
         }
