@@ -3,9 +3,15 @@ import 'package:fat_loss_for_women/database/app_database.dart';
 import 'package:fat_loss_for_women/models/Tuple/DailyProgressTuple.dart';
 import 'package:fat_loss_for_women/models/Tuple/PlanProgressTuple.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:moor/moor.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
 
-final db = AppDatabase();
+Future<DatabaseConnection> _connectAsync() async {
+  final isolate = await createMoorIsolate();
+  return isolate.connect();
+}
+
+final db = AppDatabase.connect(DatabaseConnection.delayed(_connectAsync()));
 
 final exerciseDao = Provider((_) => db.exerciseDao);
 final planDao = Provider((_) => db.planDao);

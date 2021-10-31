@@ -31,8 +31,7 @@ class _DietDetailPageState extends State<DietDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -63,6 +62,6 @@ class _DietDetailPageState extends State<DietDetailPage> {
               200.h.heightBox
             ]),
       ),
-    ));
+    );
   }
 }

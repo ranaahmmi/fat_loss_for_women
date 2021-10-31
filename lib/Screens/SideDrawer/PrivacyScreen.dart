@@ -14,58 +14,56 @@ class PrivacyPolicyScreen extends StatefulWidget {
 class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  30.heightBox,
-                  Image.asset(
-                    'assets/icons/back_arrow.png',
-                    height: 56.h,
-                    width: 76.w,
-                  ).p(5).onInkTap(() {
-                    context.pop();
-                  }),
-                  40.heightBox,
-                  Center(
-                    child: Image.asset(
-                      "assets/icons/splash_logo.png",
-                      height: 50,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                30.heightBox,
+                Image.asset(
+                  'assets/icons/back_arrow.png',
+                  height: 56.h,
+                  width: 76.w,
+                ).p(5).onInkTap(() {
+                  context.pop();
+                }),
+                40.heightBox,
+                Center(
+                  child: Image.asset(
+                    "assets/icons/splash_logo.png",
+                    height: 50,
+                  ),
+                ),
+                20.heightBox,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Developed By:",
+                      style: TextStyle(color: AppColors.black),
                     ),
-                  ),
-                  20.heightBox,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Developed By:",
-                        style: TextStyle(color: AppColors.black),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Innividio Apps",
-                        style: TextStyle(color: AppColors.primaryColor),
-                      ),
-                    ],
-                  ),
-                  10.heightBox,
-                  Html(
-                    data: htmltag,
-                    style: {
-                      "p": Style(color: AppColors.TextColorLight),
-                      'Strong':
-                          Style(color: AppColors.black, fontSize: FontSize(18))
-                    },
-                  ),
-                ],
-              ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Innividio Apps",
+                      style: TextStyle(color: AppColors.primaryColor),
+                    ),
+                  ],
+                ),
+                10.heightBox,
+                Html(
+                  data: htmltag,
+                  style: {
+                    "p": Style(color: AppColors.TextColorLight),
+                    'Strong':
+                        Style(color: AppColors.black, fontSize: FontSize(18))
+                  },
+                ),
+              ],
             ),
           ),
         ),

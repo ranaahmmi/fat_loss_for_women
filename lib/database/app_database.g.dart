@@ -5363,6 +5363,7 @@ class $WaterInTakesTable extends WaterInTakes
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$AppDatabase.connect(DatabaseConnection c) : super.connect(c);
   late final $WorkoutPlansTable workoutPlans = $WorkoutPlansTable(this);
   late final $WeeksTable weeks = $WeeksTable(this);
   late final $DaysTable days = $DaysTable(this);
