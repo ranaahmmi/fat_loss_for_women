@@ -221,7 +221,7 @@ class InitPlanLoadingState extends State<InitPlanLoading> {
   }
 
   initPlanAndNev() async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 2));
     if (widget.planlist.length != 0) {
       FirebaseAnalytics().logEvent(
           name: 'Start_Plan', parameters: {'Plan_ID': widget.plan.id});

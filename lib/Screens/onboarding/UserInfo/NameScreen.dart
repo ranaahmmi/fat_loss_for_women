@@ -1,4 +1,5 @@
 import 'package:fat_loss_for_women/Screens/onboarding/UserInfo/AgeScreen.dart';
+import 'package:fat_loss_for_women/Screens/onboarding/UserInfo/CompeleteBoarding.dart';
 import 'package:fat_loss_for_women/Shared/CustomButtons.dart';
 import 'package:fat_loss_for_women/Shared/PageAnimation.dart';
 import 'package:fat_loss_for_women/database/app_database.dart';
@@ -33,7 +34,30 @@ class NameScreenState extends State<NameScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Spacer(),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: CustomButton(
+              width: 350,
+              height: 150,
+              onpressed: () {
+                Navigator.push(
+                    context,
+                    SlideRightRoute(
+                        page: Compeletboarding(
+                            user: User(
+                      id: 0,
+                      age: 22,
+                      name: 'Anonymous',
+                      fitnessLevel: '',
+                      gender: 'male',
+                      height: '182',
+                      weight: '80',
+                    ))));
+              },
+              title: 'Skip  >>',
+            ).pOnly(top: 180.h),
+          ),
+          100.h.heightBox,
           'Your Name?'.text.color(AppColors.black).bold.size(102.sp).make(),
           64.h.heightBox,
           'So that we know how to call you.'
@@ -41,7 +65,7 @@ class NameScreenState extends State<NameScreen> {
               .color(AppColors.TextColorLight)
               .size(50.sp)
               .make(),
-          Spacer(),
+          210.h.heightBox,
           TextFormField(
             autofocus: false,
             maxLines: 1,

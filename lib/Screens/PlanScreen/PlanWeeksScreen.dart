@@ -77,245 +77,243 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: <Widget>[
-            SliverAppBar(
-                expandedHeight: isAdShow ? 1640.h : 1240.h,
-                automaticallyImplyLeading: false,
-                pinned: true,
-                floating: false,
-                snap: false,
-                elevation: 0,
-                backgroundColor: AppColors.white,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: !_isAppBarExpanded
-                      ? Text('')
-                      : Row(
-                          children: [
-                            Image.asset("assets/icons/back_arrow.png",
-                                    height: 56.h,
-                                    color: AppColors.TextColorLight)
-                                .onTap(() {
-                              Navigator.pop(context);
-                            }),
-                            Flexible(
-                              child: widget.workoutPlan.planTitle!.text
-                                  .size(68.sp)
-                                  .bold
-                                  .maxLines(2)
-                                  .color(AppColors.black)
-                                  .make()
-                                  .pOnly(left: 111.w),
-                            ),
-                          ],
-                        ).px(111.w).pOnly(top: 50.h),
-                  background: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      186.h.heightBox,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: <Widget>[
+          SliverAppBar(
+              expandedHeight: isAdShow ? 1640.h : 1240.h,
+              automaticallyImplyLeading: false,
+              pinned: true,
+              floating: false,
+              snap: false,
+              elevation: 0,
+              backgroundColor: AppColors.white,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: !_isAppBarExpanded
+                    ? Text('')
+                    : Row(
                         children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Image.asset("assets/icons/back_arrow.png",
-                                    height: 56.h,
-                                    color: AppColors.TextColorLight)
-                                .onTap(() {
-                              Navigator.pop(context);
-                            }),
-                          ),
-                          Image.asset(
-                            'assets/icons/Week_Vector.png',
-                            height: 444.h,
+                          Image.asset("assets/icons/back_arrow.png",
+                                  height: 56.h,
+                                  color: AppColors.TextColorLight)
+                              .onTap(() {
+                            Navigator.pop(context);
+                          }),
+                          Flexible(
+                            child: widget.workoutPlan.planTitle!.text
+                                .size(68.sp)
+                                .bold
+                                .maxLines(2)
+                                .color(AppColors.black)
+                                .make()
+                                .pOnly(left: 111.w),
                           ),
                         ],
-                      ).px(111.w),
-                      40.h.heightBox,
-                      if (isAdShow) NativeAdBanner(),
-                      112.h.heightBox,
-                      widget.workoutPlan.planTitle!.text
-                          .size(68.sp)
-                          .bold
-                          .color(AppColors.black)
-                          .make()
-                          .px(111.w),
-                      38.h.heightBox,
-                      "Exercise: ${widget.workoutPlan.challengeDuration}"
-                          .text
-                          .size(48.sp)
-                          .color(AppColors.TextColorLight)
-                          .make()
-                          .px(111.w),
-                      96.h.heightBox,
-                      Consumer(builder: (context, watch, child) {
-                        final planProgress = watch(getPlanProgressByPlanID(
-                                    widget.workoutPlan.id))
-                                .data
-                                ?.value ??
-                            PlanProgressTuple(planId: 1, planProgress: 0);
-                        return LinearPercentIndicator(
-                          backgroundColor: Colors.black.withOpacity(0.8),
-                          animation: true,
-                          lineHeight: 64.h,
-                          animationDuration: 2500,
-                          percent: planProgress.planProgress! / 100,
-                          center: Hero(
-                            tag: 'progressbar ${widget.workoutPlan.id}',
-                            child: Text((planProgress.planProgress)!
-                                        .toStringAsFixed(1) +
-                                    " %  Completed")
-                                .text
-                                .bold
-                                .white
-                                .make(),
-                          ),
-                          linearStrokeCap: LinearStrokeCap.roundAll,
-                          progressColor: AppColors.primaryColor,
-                        );
-                      }).px(111.w),
-                    ],
-                  ),
-                )),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              215.h.heightBox,
-              Consumer(builder: (context, watch, child) {
-                final weeks = watch(getTotalweekinPlan!(widget.workoutPlan.id));
-
-                final dayprogress =
-                    watch(getPlanDaysProgressByPlanID(widget.workoutPlan.id))
-                            .data
-                            ?.value ??
-                        [];
-
-                return weeks.when(
-                    data: (weeks) {
-                      Map<String, bool> dailyProgressMap = Map();
-                      for (DailyProgressTuple item in dayprogress) {
-                        String key =
-                            "${item.planId}-${item.weekId}-${item.dayId}";
-                        dailyProgressMap[key] = item.isDone();
-                      }
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemCount: weeks + 1,
-                        itemBuilder: (context, index) {
-                          if (index == weeks) {
-                            return CustomButton(
-                              onpressed: () async {
-                                Alertbox().resetProgress(context, () async {
-                                  final interstitial =
-                                      context.read(interstitialAdProvider);
-
-                                  if (isAdShow) {
-                                    if (!interstitial.isAvailable) {
-                                      await interstitial.load();
-                                      await Navigator.push(
-                                        context,
-                                        SlideRightRoute(
-                                          page: InitPlanLoading(
-                                            plan: widget.workoutPlan,
-                                            isAdShow: isAdShow,
-                                            planlist: [],
-                                          ),
-                                        ),
-                                      );
-                                      context.pop(true);
-                                    } else {
-                                      await interstitial.show();
-                                      await Navigator.push(
-                                        context,
-                                        SlideRightRoute(
-                                          page: InitPlanLoading(
-                                            plan: widget.workoutPlan,
-                                            isAdShow: isAdShow,
-                                            planlist: [],
-                                          ),
-                                        ),
-                                      );
-                                      context.pop(true);
-                                    }
-                                  }
-                                  await Navigator.push(
-                                    context,
-                                    SlideRightRoute(
-                                      page: InitPlanLoading(
-                                        plan: widget.workoutPlan,
-                                        isAdShow: isAdShow,
-                                        planlist: [],
-                                      ),
-                                    ),
-                                  );
-                                  context.pop(true);
-                                });
-                              },
-                              title: "Reset All Progress",
-                              color: AppColors.greyDim,
-                            ).py(188.h);
-                          }
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Column(children: [
-                              Center(
-                                  child: Text(
-                                "Week-${index + 1}",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 60.sp,
-                                    fontWeight: FontWeight.w900),
-                              )),
-                              100.h.heightBox,
-                              fullWeekCard(
-                                planID: widget.workoutPlan.id,
-                                day1Active:
-                                    isActive(dailyProgressMap, index, 1),
-                                day2Active:
-                                    isActive(dailyProgressMap, index, 2),
-                                day3Active:
-                                    isActive(dailyProgressMap, index, 3),
-                                day4Active:
-                                    isActive(dailyProgressMap, index, 4),
-                                day5Active:
-                                    isActive(dailyProgressMap, index, 5),
-                                day6Active:
-                                    isActive(dailyProgressMap, index, 6),
-                                day7Active:
-                                    isActive(dailyProgressMap, index, 7),
-                                day1isRestDay:
-                                    isRestDay(dailyProgressMap, index, 1),
-                                day2isRestDay:
-                                    isRestDay(dailyProgressMap, index, 2),
-                                day3isRestDay:
-                                    isRestDay(dailyProgressMap, index, 3),
-                                day4isRestDay:
-                                    isRestDay(dailyProgressMap, index, 4),
-                                day5isRestDay:
-                                    isRestDay(dailyProgressMap, index, 5),
-                                day6isRestDay:
-                                    isRestDay(dailyProgressMap, index, 6),
-                                day7isRestDay:
-                                    isRestDay(dailyProgressMap, index, 7),
-                                weekID: index + 1,
-                              )
-                            ]),
-                          );
-                        },
+                      ).px(111.w).pOnly(top: 50.h),
+                background: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    186.h.heightBox,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Image.asset("assets/icons/back_arrow.png",
+                                  height: 56.h,
+                                  color: AppColors.TextColorLight)
+                              .onTap(() {
+                            Navigator.pop(context);
+                          }),
+                        ),
+                        Image.asset(
+                          'assets/icons/Week_Vector.png',
+                          height: 444.h,
+                        ),
+                      ],
+                    ).px(111.w),
+                    40.h.heightBox,
+                    if (isAdShow) NativeAdBanner(),
+                    112.h.heightBox,
+                    widget.workoutPlan.planTitle!.text
+                        .size(68.sp)
+                        .bold
+                        .color(AppColors.black)
+                        .make()
+                        .px(111.w),
+                    38.h.heightBox,
+                    "Exercise: ${widget.workoutPlan.challengeDuration}"
+                        .text
+                        .size(48.sp)
+                        .color(AppColors.TextColorLight)
+                        .make()
+                        .px(111.w),
+                    96.h.heightBox,
+                    Consumer(builder: (context, watch, child) {
+                      final planProgress = watch(getPlanProgressByPlanID(
+                                  widget.workoutPlan.id))
+                              .data
+                              ?.value ??
+                          PlanProgressTuple(planId: 1, planProgress: 0);
+                      return LinearPercentIndicator(
+                        backgroundColor: Colors.black.withOpacity(0.8),
+                        animation: true,
+                        lineHeight: 64.h,
+                        animationDuration: 2500,
+                        percent: planProgress.planProgress! / 100,
+                        center: Hero(
+                          tag: 'progressbar ${widget.workoutPlan.id}',
+                          child: Text((planProgress.planProgress)!
+                                      .toStringAsFixed(1) +
+                                  " %  Completed")
+                              .text
+                              .bold
+                              .white
+                              .make(),
+                        ),
+                        linearStrokeCap: LinearStrokeCap.roundAll,
+                        progressColor: AppColors.primaryColor,
                       );
-                    },
-                    loading: () => loading(),
-                    error: error);
-              }).px(111.w),
-            ]))
-          ],
-        ),
+                    }).px(111.w),
+                  ],
+                ),
+              )),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            215.h.heightBox,
+            Consumer(builder: (context, watch, child) {
+              final weeks = watch(getTotalweekinPlan!(widget.workoutPlan.id));
+
+              final dayprogress =
+                  watch(getPlanDaysProgressByPlanID(widget.workoutPlan.id))
+                          .data
+                          ?.value ??
+                      [];
+
+              return weeks.when(
+                  data: (weeks) {
+                    Map<String, bool> dailyProgressMap = Map();
+                    for (DailyProgressTuple item in dayprogress) {
+                      String key =
+                          "${item.planId}-${item.weekId}-${item.dayId}";
+                      dailyProgressMap[key] = item.isDone();
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: weeks + 1,
+                      itemBuilder: (context, index) {
+                        if (index == weeks) {
+                          return CustomButton(
+                            onpressed: () async {
+                              Alertbox().resetProgress(context, () async {
+                                final interstitial =
+                                    context.read(interstitialAdProvider);
+
+                                if (isAdShow) {
+                                  if (!interstitial.isAvailable) {
+                                    await interstitial.load();
+                                    await Navigator.push(
+                                      context,
+                                      SlideRightRoute(
+                                        page: InitPlanLoading(
+                                          plan: widget.workoutPlan,
+                                          isAdShow: isAdShow,
+                                          planlist: [],
+                                        ),
+                                      ),
+                                    );
+                                    context.pop(true);
+                                  } else {
+                                    await interstitial.show();
+                                    await Navigator.push(
+                                      context,
+                                      SlideRightRoute(
+                                        page: InitPlanLoading(
+                                          plan: widget.workoutPlan,
+                                          isAdShow: isAdShow,
+                                          planlist: [],
+                                        ),
+                                      ),
+                                    );
+                                    context.pop(true);
+                                  }
+                                }
+                                await Navigator.push(
+                                  context,
+                                  SlideRightRoute(
+                                    page: InitPlanLoading(
+                                      plan: widget.workoutPlan,
+                                      isAdShow: isAdShow,
+                                      planlist: [],
+                                    ),
+                                  ),
+                                );
+                                context.pop(true);
+                              });
+                            },
+                            title: "Reset All Progress",
+                            color: AppColors.greyDim,
+                          ).py(188.h);
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(children: [
+                            Center(
+                                child: Text(
+                              "Week-${index + 1}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 60.sp,
+                                  fontWeight: FontWeight.w900),
+                            )),
+                            100.h.heightBox,
+                            fullWeekCard(
+                              planID: widget.workoutPlan.id,
+                              day1Active:
+                                  isActive(dailyProgressMap, index, 1),
+                              day2Active:
+                                  isActive(dailyProgressMap, index, 2),
+                              day3Active:
+                                  isActive(dailyProgressMap, index, 3),
+                              day4Active:
+                                  isActive(dailyProgressMap, index, 4),
+                              day5Active:
+                                  isActive(dailyProgressMap, index, 5),
+                              day6Active:
+                                  isActive(dailyProgressMap, index, 6),
+                              day7Active:
+                                  isActive(dailyProgressMap, index, 7),
+                              day1isRestDay:
+                                  isRestDay(dailyProgressMap, index, 1),
+                              day2isRestDay:
+                                  isRestDay(dailyProgressMap, index, 2),
+                              day3isRestDay:
+                                  isRestDay(dailyProgressMap, index, 3),
+                              day4isRestDay:
+                                  isRestDay(dailyProgressMap, index, 4),
+                              day5isRestDay:
+                                  isRestDay(dailyProgressMap, index, 5),
+                              day6isRestDay:
+                                  isRestDay(dailyProgressMap, index, 6),
+                              day7isRestDay:
+                                  isRestDay(dailyProgressMap, index, 7),
+                              weekID: index + 1,
+                            )
+                          ]),
+                        );
+                      },
+                    );
+                  },
+                  loading: () => loading(),
+                  error: error);
+            }).px(111.w),
+          ]))
+        ],
       ),
     );
   }

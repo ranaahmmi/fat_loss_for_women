@@ -36,76 +36,74 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.white,
-        body: WillPopScope(
-            onWillPop: _onBackPressed, child: screenSelect(_bottomNavIndex)),
-        bottomNavigationBar: AnimatedContainer(
-          duration: Duration(milliseconds: 600),
-          height: _isVisible ? 240.h : 0,
-          child: Center(
-            child: Container(
-              child: BottomNavigationBar(
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                backgroundColor: AppColors.white,
-                elevation: 10,
-                iconSize: 66.h,
-                selectedLabelStyle: TextStyle(fontSize: 10, height: 1.7),
-                unselectedLabelStyle: TextStyle(fontSize: 10, height: 1.7),
-                selectedItemColor: AppColors.primaryColor,
-                selectedIconTheme: IconThemeData(color: AppColors.primaryColor),
-                unselectedIconTheme: IconThemeData(color: Colors.grey),
-                selectedFontSize: 14,
-                unselectedItemColor: Colors.grey,
-                enableFeedback: true,
-                type: BottomNavigationBarType.shifting,
-                onTap: (value) {
-                  _bottomNavIndex = value;
-                  setState(() {});
-                },
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Image.asset(
-                        'assets/icons/Plan_Icon.png',
-                        color: Colors.grey,
-                        height: 66.h,
-                      ),
-                      activeIcon: Image.asset(
-                        'assets/icons/Plan_Icon.png',
-                        color: AppColors.primaryColor,
-                        height: 66.h,
-                      ),
-                      label: 'Plan'),
-                  BottomNavigationBarItem(
-                      icon: Image.asset('assets/icons/utilites_icon.png',
-                          height: 66.h),
-                      activeIcon: Image.asset('assets/icons/utilites_icon.png',
-                          height: 66.h, color: AppColors.primaryColor),
-                      label: 'Utilities'),
-                  BottomNavigationBarItem(
-                      icon: Image.asset('assets/icons/diet_icon.png',
-                          height: 66.h),
-                      activeIcon: Image.asset('assets/icons/diet_icon.png',
-                          height: 66.h, color: AppColors.primaryColor),
-                      label: 'Diet'),
-                  BottomNavigationBarItem(
-                      icon: Image.asset('assets/icons/reports_icon.png',
-                          height: 66.h),
-                      activeIcon: Image.asset('assets/icons/reports_icon.png',
-                          height: 66.h, color: AppColors.primaryColor),
-                      label: 'Reports'),
-                  BottomNavigationBarItem(
-                      icon: Image.asset('assets/icons/settings_icon.png',
-                          height: 66.h),
-                      activeIcon: Image.asset('assets/icons/settings_icon.png',
-                          height: 66.h, color: AppColors.primaryColor),
-                      label: 'Settings'),
-                ],
-                currentIndex: _bottomNavIndex,
-              ).h(240.h),
-            ),
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      body: WillPopScope(
+          onWillPop: _onBackPressed, child: screenSelect(_bottomNavIndex)),
+      bottomNavigationBar: AnimatedContainer(
+        duration: Duration(milliseconds: 600),
+        height: _isVisible ? 240.h : 0,
+        child: Center(
+          child: Container(
+            child: BottomNavigationBar(
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              backgroundColor: AppColors.white,
+              elevation: 10,
+              iconSize: 66.h,
+              selectedLabelStyle: TextStyle(fontSize: 10, height: 1.7),
+              unselectedLabelStyle: TextStyle(fontSize: 10, height: 1.7),
+              selectedItemColor: AppColors.primaryColor,
+              selectedIconTheme: IconThemeData(color: AppColors.primaryColor),
+              unselectedIconTheme: IconThemeData(color: Colors.grey),
+              selectedFontSize: 14,
+              unselectedItemColor: Colors.grey,
+              enableFeedback: true,
+              type: BottomNavigationBarType.shifting,
+              onTap: (value) {
+                _bottomNavIndex = value;
+                setState(() {});
+              },
+              items: [
+                BottomNavigationBarItem(
+                    icon: Image.asset(
+                      'assets/icons/Plan_Icon.png',
+                      color: Colors.grey,
+                      height: 66.h,
+                    ),
+                    activeIcon: Image.asset(
+                      'assets/icons/Plan_Icon.png',
+                      color: AppColors.primaryColor,
+                      height: 66.h,
+                    ),
+                    label: 'Plan'),
+                BottomNavigationBarItem(
+                    icon: Image.asset('assets/icons/utilites_icon.png',
+                        height: 66.h),
+                    activeIcon: Image.asset('assets/icons/utilites_icon.png',
+                        height: 66.h, color: AppColors.primaryColor),
+                    label: 'Utilities'),
+                BottomNavigationBarItem(
+                    icon:
+                        Image.asset('assets/icons/diet_icon.png', height: 66.h),
+                    activeIcon: Image.asset('assets/icons/diet_icon.png',
+                        height: 66.h, color: AppColors.primaryColor),
+                    label: 'Diet'),
+                BottomNavigationBarItem(
+                    icon: Image.asset('assets/icons/reports_icon.png',
+                        height: 66.h),
+                    activeIcon: Image.asset('assets/icons/reports_icon.png',
+                        height: 66.h, color: AppColors.primaryColor),
+                    label: 'Reports'),
+                BottomNavigationBarItem(
+                    icon: Image.asset('assets/icons/settings_icon.png',
+                        height: 66.h),
+                    activeIcon: Image.asset('assets/icons/settings_icon.png',
+                        height: 66.h, color: AppColors.primaryColor),
+                    label: 'Settings'),
+              ],
+              currentIndex: _bottomNavIndex,
+            ).h(240.h),
           ),
         ),
       ),

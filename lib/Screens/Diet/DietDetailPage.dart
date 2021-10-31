@@ -31,38 +31,37 @@ class _DietDetailPageState extends State<DietDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              108.h.heightBox,
-              Image.asset(
-                "assets/icons/back_arrow.png",
-                height: 56.54.h,
-                width: 76.98.w,
-              ).onTap(() {
-                context.pop();
-              }).pOnly(left: 103.w),
-              132.h.heightBox,
-              Text(widget.title,
-                  style: TextStyle(
-                    fontSize: 68.sp,
-                    fontWeight: FontWeight.bold,
-                  )).pOnly(left: 103.w),
-              77.h.heightBox,
-              if (isAdShow) NativeAdBanner(),
-              50.h.heightBox,
-              Image.asset(
-                widget.imageUrl,
-                //height: 2012.h,
-                width: double.infinity,
-              ).px(103.w),
-              200.h.heightBox
-            ]),
+    child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          108.h.heightBox,
+          Image.asset(
+            "assets/icons/back_arrow.png",
+            height: 56.54.h,
+            width: 76.98.w,
+          ).onTap(() {
+            context.pop();
+          }).pOnly(left: 103.w),
+          132.h.heightBox,
+          Text(widget.title,
+              style: TextStyle(
+                fontSize: 68.sp,
+                fontWeight: FontWeight.bold,
+              )).pOnly(left: 103.w),
+          77.h.heightBox,
+          if (isAdShow) NativeAdBanner(),
+          50.h.heightBox,
+          Image.asset(
+            widget.imageUrl,
+            //height: 2012.h,
+            width: double.infinity,
+          ).px(103.w),
+          200.h.heightBox
+        ]),
       ),
-    ));
+    );
   }
 }

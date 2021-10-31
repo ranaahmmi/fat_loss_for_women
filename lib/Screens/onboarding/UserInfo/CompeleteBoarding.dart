@@ -34,7 +34,7 @@ class CompeletboardingState extends State<Compeletboarding> {
   }
 
   userUploadandFatchData() async {
-    await Future.delayed(Duration(seconds: 4), () {});
+    await Future.delayed(Duration(seconds: 1), () {});
     final dao = context.read(userDao);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseAnalytics().logEvent(name: 'Onbording_Compelete', parameters: {

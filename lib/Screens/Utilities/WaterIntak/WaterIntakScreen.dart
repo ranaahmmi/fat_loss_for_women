@@ -39,7 +39,7 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Consumer(
+    return Consumer(
       builder: (context, watch, child) {
         final waterData = watch(waterIntakeStream);
         return waterData.when(
@@ -192,7 +192,7 @@ class _WaterIntakScreenState extends State<WaterIntakScreen> {
             loading: () => loading(),
             error: error);
       },
-    ));
+    );
   }
 }
 
