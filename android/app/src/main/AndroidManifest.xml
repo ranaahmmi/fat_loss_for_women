@@ -64,7 +64,7 @@
 <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
 <meta-data
 android:name="com.google.android.gms.ads.APPLICATION_ID"
-android:value="ca-app-pub-4044308120454547~8588052750"/>
+android:value="ca-app-pub-4044308120454547~8664328277"/>
 
     </application>
 </manifest>

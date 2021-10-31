@@ -42,7 +42,6 @@ void main() async {
 
   await MobileAds.initialize(
     nativeAdUnitId: nativeAdUnitId,
-    bannerAdUnitId: bannerAdUnitId,
     interstitialAdUnitId: interstitialAdUnitId,
   );
   runApp(ProviderScope(child: MyApp()));
@@ -54,7 +53,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(1448, 2960),
       builder: () => MaterialApp(
-        title: '30 Day Fitness For Men',
+        title: '30 Day Fitness For Women',
         theme: ThemeData(
           fontFamily: 'SfPro',
           primarySwatch: Colors.pink,

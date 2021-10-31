@@ -1,4 +1,3 @@
-import 'package:fat_loss_for_women/InApp/InAppPurcheses.dart';
 import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
 import 'package:fat_loss_for_women/Screens/ProScreen/ProScreen.dart';
 import 'package:fat_loss_for_women/Screens/Utilities/WaterIntak/WaterIntakScreen.dart';
@@ -76,24 +75,28 @@ class WaterHeader extends ConsumerWidget {
                               .blue300
                               .make(),
                         )
-                      ]).wh(200.h, 200.h),
+                      ]).wh(200.h, 200.h).onTap(() async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        bool _seen = (prefs.getBool('HOME_SEEN') ?? false);
+                        if (!_seen) {
+                          WaterInTake water = await context
+                              .read(waterIntakeDao)
+                              .getWaterIntakefuture();
+                          await WaterintakeSheet().showWaterSettingSheet(
+                              context,
+                              water,
+                              await context.read(userDao).getUserfuture());
+                          await prefs.setBool('HOME_SEEN', true);
+                          context.nextPage(WaterIntakScreen());
+                        } else {
+                          context.nextPage(WaterIntakScreen());
+                        }
+                      }),
                     ],
                   ),
                 ],
-              ).onTap(() async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                bool _seen = (prefs.getBool('HOME_SEEN') ?? false);
-                if (!_seen) {
-                  WaterInTake water =
-                      await context.read(waterIntakeDao).getWaterIntakefuture();
-                  await WaterintakeSheet().showWaterSettingSheet(context, water,
-                      await context.read(userDao).getUserfuture());
-                  await prefs.setBool('HOME_SEEN', true);
-                  context.nextPage(WaterIntakScreen());
-                } else {
-                  context.nextPage(WaterIntakScreen());
-                }
-              }),
+              )
             ],
           );
         },
