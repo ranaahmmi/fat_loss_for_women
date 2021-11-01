@@ -12,11 +12,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart' as ad;
 
 bool iswater = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  ad.MobileAds.instance.initialize();
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin

@@ -43,7 +43,7 @@ class _CalorieBurningChartState extends State<CalorieBurningChart> {
             maxLines: 4,
           ),
           40.h.heightBox,
-          // NativeAdsFull(),
+          NativeAdsFull(),
           80.h.heightBox,
           Image.asset(
             "assets/icons/calories_chart.png",

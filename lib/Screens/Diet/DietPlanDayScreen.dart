@@ -82,7 +82,7 @@ class _DietPlanDayScreenState extends State<DietPlanDayScreen> {
                 return Column(
                   children: [
                     if (index == 0 && isAdShow)
-                      // NativeAdsFull().pOnly(bottom: 100.h),
+                      NativeAdsFull().pOnly(bottom: 100.h),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,7 +137,7 @@ class _DietPlanDayScreenState extends State<DietPlanDayScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (index % 2 == 0 && index != 0 && isAdShow)
-                    // NativeAdsFull().pOnly(bottom: 128.h),
+                    NativeAdsFull().pOnly(bottom: 128.h),
                   Image.asset(
                     widget.dietPlan.planDetail[index].mainImage,
                     width: 1234.w,

@@ -138,7 +138,7 @@ class _PlanDetailScreenState extends State<PlanDetailScreen> {
                 ],
               ),
             ),
-            // if (isAdShow) NativeAdBanner(),
+            if (isAdShow) NativeAdBanner(),
             130.h.heightBox,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,17 +288,17 @@ class InitPlanLoadingState extends State<InitPlanLoading> {
               .color(AppColors.TextColorLight)
               .make(),
           150.h.heightBox,
-          // if (widget.isAdShow)
-            // Container(
-            //         height: 1000.h,
-            //         decoration: BoxDecoration(
-            //             // borderRadius:
-            //             //     BorderRadius.circular(20),
-            //             // border: Border.all(
-            //             //     color: Colors.black, width: 0)
-            //             ),
-            //         child: NativeAdsFull())
-            //     .px(3.w)
+          if (widget.isAdShow)
+            Container(
+                    height: 1000.h,
+                    decoration: BoxDecoration(
+                        // borderRadius:
+                        //     BorderRadius.circular(20),
+                        // border: Border.all(
+                        //     color: Colors.black, width: 0)
+                        ),
+                    child: NativeAdsFull())
+                .px(3.w)
         ],
       ),
     );

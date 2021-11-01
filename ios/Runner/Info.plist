@@ -21,8 +21,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-4044308120454547~6813763391</string>
-<<<<<<< HEAD
+	<string>ca-app-pub-4044308120454547~1444313808</string>
 	<key>SKAdNetworkItems</key>
   <array>
     <dict>
@@ -30,8 +29,6 @@
       <string>cstr6suwn9.skadnetwork</string>
     </dict>
   </array>
-=======
->>>>>>> 357480f (remove native ad)
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

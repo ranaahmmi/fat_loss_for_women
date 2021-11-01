@@ -59,7 +59,7 @@ class _BMIChartState extends State<BMIChart> {
               style: TextStyle(fontSize: 46.sp),
             ),
             40.h.heightBox,
-            // if (isAdShow) NativeAdsFull(),
+            if (isAdShow) NativeAdsFull(),
             80.h.heightBox,
             Image.asset(
               "assets/icons/bmi_chart.png",

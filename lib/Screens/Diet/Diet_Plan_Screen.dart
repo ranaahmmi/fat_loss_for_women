@@ -64,7 +64,7 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                 return Column(
                   children: [
                     if (index == 1 && isAdShow)
-                      // NativeAdsFull().px(70.w).pOnly(bottom: 50.h),
+                      NativeAdsFull().px(70.w).pOnly(bottom: 50.h),
                     Container(
                       width: 1301.w,
                       height: 761.h,

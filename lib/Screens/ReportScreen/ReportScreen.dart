@@ -198,7 +198,7 @@ class _ReportScreenState extends State<ReportScreen>
               error: (e, st) => Text('Error: $e'));
         }),
         130.h.heightBox,
-        // if (isAdShow) NativeAdsFull(),
+        if (isAdShow) NativeAdsFull(),
         90.h.heightBox,
         Row(
           children: [
@@ -261,7 +261,7 @@ class _ReportScreenState extends State<ReportScreen>
               ]),
         ),
         140.h.heightBox,
-        // if (isAdShow) NativeAdsFull(),
+        if (isAdShow) NativeAdsFull(),
         150.h.heightBox,
         Row(
           children: [

@@ -59,7 +59,7 @@ class _ExerciseDoneScreenState extends State<ExerciseDoneScreen> {
             ),
           ),
           50.h.heightBox,
-          // if (isAdShow) NativeAdBanner(),
+          if (isAdShow) NativeAdBanner(),
           isAdShow ? 30.h.heightBox : 140.h.heightBox,
           Center(
             child: 'Congratulations, You Have Finished Your Workout'

@@ -67,7 +67,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("jkjl");
 }
 
-
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -106,13 +105,12 @@ String get nativeAdUnitId {
   if (kDebugMode)
     return MobileAds.nativeAdTestUnitId;
   else
-    return "ca-app-pub-4044308120454547/9437821065";
+    return "ca-app-pub-4044308120454547/7644381337";
 }
-
 
 String get interstitialAdUnitId {
   if (kDebugMode)
     return MobileAds.interstitialAdTestUnitId;
   else
-    return "ca-app-pub-4044308120454547/7400838755";
+    return "ca-app-pub-4044308120454547/4381274819";
 }

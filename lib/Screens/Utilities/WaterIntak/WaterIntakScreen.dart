@@ -5,6 +5,7 @@ import 'package:fat_loss_for_women/Shared/Aleartbox.dart';
 import 'package:fat_loss_for_women/Shared/Constants.dart';
 import 'package:fat_loss_for_women/Shared/CustomButtons.dart';
 import 'package:fat_loss_for_women/database/app_database.dart';
+import 'package:fat_loss_for_women/plugins/Ads.dart';
 import 'package:fat_loss_for_women/plugins/Notification_plugin.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -226,7 +227,7 @@ class WaterintakeSheet {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // if (user.ip!) NativeAdBanner(),
+                          if (user.ip!) NativeAdBanner(),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,7 +377,7 @@ class WaterintakeSheet {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // if (user.ip!) NativeAdBanner(),
+                          if (user.ip!) NativeAdBanner(),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,

@@ -113,7 +113,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   subtitle: widget.exercise!.mainMuscleGroup!,
                 ).px(100.w),
                 110.h.heightBox,
-                // if (isAdShow) NativeAdBanner(),
+                if (isAdShow) NativeAdBanner(),
                 140.h.heightBox,
                 'How to perform?'
                     .text
