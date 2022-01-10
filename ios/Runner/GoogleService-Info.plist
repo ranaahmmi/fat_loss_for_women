@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>244344807430-mpj0hntp8qdgn4jntoqji2o05v2jis4u.apps.googleusercontent.com</string>
+	<string>277645828588-249qe67o1g0qgtski3ihv4qu66mlvkui.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.244344807430-mpj0hntp8qdgn4jntoqji2o05v2jis4u</string>
+	<string>com.googleusercontent.apps.277645828588-249qe67o1g0qgtski3ihv4qu66mlvkui</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDl7Pjd0Jfa7ayEnHfJuXUQrGJdgct1vOM</string>
+	<string>AIzaSyAE1kRl1QAx1QbsOD_MtNCbBwI7mGFlxD4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>244344807430</string>
+	<string>277645828588</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.thirtydaysfitness.mensfitness</string>
+	<string>com.thirtydaysfitness.womenfitness</string>
 	<key>PROJECT_ID</key>
-	<string>fat-loss-for-men</string>
+	<string>days-fitness-store</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fat-loss-for-men.appspot.com</string>
+	<string>days-fitness-store.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:244344807430:ios:355bd9a6409b3c4c3de387</string>
+	<string>1:277645828588:ios:d5340ee67aa6ffad90e0c9</string>
 </dict>
 </plist>
