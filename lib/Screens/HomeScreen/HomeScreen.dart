@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onWillPop: _onBackPressed, child: screenSelect(_bottomNavIndex)),
       bottomNavigationBar: AnimatedContainer(
         duration: Duration(milliseconds: 600),
-        height: _isVisible ? 240.h : 0,
+        height: _isVisible ? 265.h : 0,
         child: Center(
           child: Container(
             child: BottomNavigationBar(
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     label: 'Settings'),
               ],
               currentIndex: _bottomNavIndex,
-            ).h(240.h),
+            ).h(265.h),
           ),
         ),
       ),
