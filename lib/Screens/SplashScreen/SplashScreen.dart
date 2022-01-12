@@ -4,6 +4,7 @@ import 'package:fat_loss_for_women/Providers/RiverpodProvider.dart';
 import 'package:fat_loss_for_women/Repository/PlanRepo.dart';
 import 'package:fat_loss_for_women/Screens/HomeScreen/HomeScreen.dart';
 import 'package:fat_loss_for_women/Screens/onboarding/Onboarding.dart';
+import 'package:fat_loss_for_women/Screens/onboarding/UserInfo/CompeleteBoarding.dart';
 import 'package:fat_loss_for_women/Shared/PageAnimation.dart';
 import 'package:fat_loss_for_women/database/app_database.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -24,10 +25,16 @@ class SplashScreenState extends State<SplashScreen> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
+    bool isShowDiet = (prefs.getBool('diet') ?? false);
+    print(isShowDiet);
+    if (!isShowDiet) {
+      await PlansRepo().getisShowDiet(context).then((value) {
+        if (value) {
+          prefs.setBool('diet', value);
+        }
+      });
+    }
 
-    // if (_seen) {
-    //   WorkoutRepo().addPlanToDatabase(context);
-    // }
     Future.delayed(const Duration(seconds: 2), () async {
       if (_seen) {
         final waterIntake = context.read(waterIntakeDao);
@@ -37,19 +44,27 @@ class SplashScreenState extends State<SplashScreen> {
           waterIntake.insertWaterIntake(water.copyWith(
               dayTime: DateTime.now().toString(), drinkGlass: 0));
         }
-        // await WorkoutsRepo().addWorkoutToDatabase(context);
         PlansRepo().addPlanToDatabase(context);
 
         Navigator.of(context)
             .pushReplacement(SlideBouttomRoute(page: HomeScreen()));
       } else {
-        // await WorkoutsRepo().addWorkoutToDatabase(context);
-        // await PlansRepo().addPlanToDatabase(context);
         FirebaseAnalytics().logEvent(
           name: 'New_User',
         );
-        Navigator.of(context)
-            .pushReplacement(SlideRightRoute(page: Onboarding()));
+        Navigator.of(context).pushReplacement(SlideRightRoute(
+            page: isShowDiet
+                ? Onboarding()
+                : Compeletboarding(
+                    user: User(
+                    id: 0,
+                    age: 22,
+                    name: 'Anonymous',
+                    fitnessLevel: '',
+                    gender: 'male',
+                    height: '182',
+                    weight: '80',
+                  ))));
       }
     });
   }

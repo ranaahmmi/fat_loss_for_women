@@ -46,7 +46,7 @@ Widget error(Object e, StackTrace? st) {
 
 const String item1m = 'item_1m';
 
-const List<String> kProductIds = <String>[item1m];
+const Set<String> kProductIds = <String>{item1m};
 
 void printAdDetails(NativeAdController controller) async {
   print("------- NATIVE AD DETAILS: -------");
@@ -64,7 +64,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
   print("Handling a background message: ${message.messageId}");
-  print("jkjl");
 }
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

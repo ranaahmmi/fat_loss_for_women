@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,12 +30,21 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   File? img;
   String version = '0.0.1';
+  bool isShow = false;
 
   @override
   void initState() {
     super.initState();
     getImage();
     getVersion();
+    showDiet();
+  }
+
+  showDiet() async {
+    final prefs = await SharedPreferences.getInstance();
+    final diet = prefs.getBool('diet') ?? false;
+    isShow = diet;
+    setState(() {});
   }
 
   getImage() async {
@@ -50,18 +58,13 @@ class _SettingScreenState extends State<SettingScreen> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     version = packageInfo.version;
     print(packageInfo.appName);
-    print(packageInfo.packageName);
     setState(() {});
   }
 
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      isLoading: isloading,
-      color: AppColors.black,
-      progressIndicator: loading(),
-      child: Scaffold(
+    return  Scaffold(
         body: Consumer(builder: (context, watch, child) {
           final userdata = watch(userStream);
 
@@ -73,10 +76,12 @@ class _SettingScreenState extends State<SettingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(
-                          'assets/icons/drawer_icon.png',
-                          height: 45.h,
-                        ),
+                        // Image.asset(
+                        //   'assets/icons/drawer_icon.png',
+                        //   height: 45.h,
+                        // ),
+                        Text(''),
+
                         Container(
                           height: 260.w,
                           width: 260.w,
@@ -111,35 +116,46 @@ class _SettingScreenState extends State<SettingScreen> {
                       ],
                     ),
                     54.h.heightBox,
-                    user.name!.text
+                    (isShow ? user.name! : 'Settings')
+                        .text
                         .size(102.sp)
                         .extraBold
                         .color(AppColors.black)
                         .make(),
                     140.h.heightBox,
-                    'Prrimary'.text.size(48.sp).color(AppColors.greyDim).make(),
-                    80.h.heightBox,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 if (isShow)    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        'Profile'
-                            .text
-                            .size(56.sp)
-                            .color(AppColors.black)
-                            .make(),
-                        'Edit Profile'
+                        'Prrimary'
                             .text
                             .size(48.sp)
-                            .color(AppColors.primaryColor)
-                            .make()
-                            .onInkTap(() {
-                          FirebaseAnalytics().logEvent(
-                            name: 'Edit_Profile',
-                          );
-                          context.nextPage(ProfileSetting(
-                            user: user,
-                          ));
-                        }),
+                            .color(AppColors.greyDim)
+                            .make(),
+                        80.h.heightBox,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            'Profile'
+                                .text
+                                .size(56.sp)
+                                .color(AppColors.black)
+                                .make(),
+                            'Edit Profile'
+                                .text
+                                .size(48.sp)
+                                .color(AppColors.primaryColor)
+                                .make()
+                                .onInkTap(() {
+                              FirebaseAnalytics().logEvent(
+                                name: 'Edit_Profile',
+                              );
+                              context.nextPage(ProfileSetting(
+                                user: user,
+                              ));
+                            }),
+                          ],
+                        ),
+                        160.h.heightBox,
                       ],
                     ),
                     // 140.h.heightBox,
@@ -179,7 +195,6 @@ class _SettingScreenState extends State<SettingScreen> {
                     //     }),
                     //   ],
                     // ),
-                    160.h.heightBox,
                     'Notifications'
                         .text
                         .size(48.sp)
@@ -426,7 +441,6 @@ class _SettingScreenState extends State<SettingScreen> {
               loading: loading,
               error: error);
         }),
-      ),
     );
   }
 }

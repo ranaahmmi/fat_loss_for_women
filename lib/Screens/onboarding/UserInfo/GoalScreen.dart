@@ -3,7 +3,6 @@ import 'package:fat_loss_for_women/Shared/Constants.dart';
 import 'package:fat_loss_for_women/Shared/PageAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -35,11 +34,7 @@ class GoalScreenState extends State<GoalScreen> {
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      isLoading: isloading,
-      color: AppColors.black,
-      progressIndicator: loading(),
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: AppColors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -172,7 +167,6 @@ class GoalScreenState extends State<GoalScreen> {
             ],
           ).px(112.w),
         ),
-      ),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:fat_loss_for_women/Style/Colors.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,17 +20,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isVisible = true;
   late ScrollController controller;
+  bool isShow = false;
 
   @override
   void initState() {
     super.initState();
     controller = ScrollController();
+    showDiet();
+
     controller.addListener(() {
       setState(() {
         _isVisible =
             controller.position.userScrollDirection == ScrollDirection.forward;
       });
     });
+  }
+
+  showDiet() async {
+    final prefs = await SharedPreferences.getInstance();
+    final diet = prefs.getBool('diet') ?? false;
+    isShow = diet;
+    setState(() {});
   }
 
   int _bottomNavIndex = 0;
@@ -42,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onWillPop: _onBackPressed, child: screenSelect(_bottomNavIndex)),
       bottomNavigationBar: AnimatedContainer(
         duration: Duration(milliseconds: 600),
-        height: _isVisible ? 265.h : 0,
+        height: _isVisible ? 268.h : 0,
         child: Center(
           child: Container(
             child: BottomNavigationBar(
@@ -77,24 +88,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 66.h,
                     ),
                     label: 'Plan'),
-                BottomNavigationBarItem(
-                    icon: Image.asset('assets/icons/utilites_icon.png',
-                        height: 66.h),
-                    activeIcon: Image.asset('assets/icons/utilites_icon.png',
-                        height: 66.h, color: AppColors.primaryColor),
-                    label: 'Utilities'),
-                BottomNavigationBarItem(
-                    icon:
-                        Image.asset('assets/icons/diet_icon.png', height: 66.h),
-                    activeIcon: Image.asset('assets/icons/diet_icon.png',
-                        height: 66.h, color: AppColors.primaryColor),
-                    label: 'Diet'),
-                BottomNavigationBarItem(
-                    icon: Image.asset('assets/icons/reports_icon.png',
-                        height: 66.h),
-                    activeIcon: Image.asset('assets/icons/reports_icon.png',
-                        height: 66.h, color: AppColors.primaryColor),
-                    label: 'Reports'),
+                if (isShow)
+                  BottomNavigationBarItem(
+                      icon: Image.asset('assets/icons/utilites_icon.png',
+                          height: 66.h),
+                      activeIcon: Image.asset('assets/icons/utilites_icon.png',
+                          height: 66.h, color: AppColors.primaryColor),
+                      label: 'Utilities'),
+                if (isShow)
+                  BottomNavigationBarItem(
+                      icon: Image.asset('assets/icons/diet_icon.png',
+                          height: 66.h),
+                      activeIcon: Image.asset('assets/icons/diet_icon.png',
+                          height: 66.h, color: AppColors.primaryColor),
+                      label: 'Diet'),
+                if (isShow)
+                  BottomNavigationBarItem(
+                      icon: Image.asset('assets/icons/reports_icon.png',
+                          height: 66.h),
+                      activeIcon: Image.asset('assets/icons/reports_icon.png',
+                          height: 66.h, color: AppColors.primaryColor),
+                      label: 'Reports'),
                 BottomNavigationBarItem(
                     icon: Image.asset('assets/icons/settings_icon.png',
                         height: 66.h),
@@ -103,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     label: 'Settings'),
               ],
               currentIndex: _bottomNavIndex,
-            ).h(265.h),
+            ).h(268.h),
           ),
         ),
       ),
@@ -118,37 +132,52 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget screenSelect(int index) {
-    switch (index) {
-      case 1:
-        FirebaseAnalytics().logEvent(
-          name: 'Utitlity_Screen_View',
-        );
-        return UtitlitiesScreen();
-      case 2:
-        FirebaseAnalytics().logEvent(
-          name: 'Diet_Screen_View',
-        );
-        return DietPlanScreen();
-      case 3:
-        FirebaseAnalytics().logEvent(
-          name: 'Report_Screen_View',
-        );
-        return ReportScreen();
-      case 4:
-        FirebaseAnalytics().logEvent(
-          name: 'Setting_Screen_View',
-        );
-        return SettingScreen();
-      default:
-        FirebaseAnalytics().logEvent(
-          name: 'Plan_Screen_View',
-        );
-        return ListView(
+    return IndexedStack(
+      index: index,
+      children: [
+        ListView(
           controller: controller,
           children: [
             PlanScreen(),
           ],
-        );
-    }
+        ),
+        !isShow ? SettingScreen() : UtitlitiesScreen(),
+        !isShow ? SettingScreen() : DietPlanScreen(),
+        !isShow ? SettingScreen() : ReportScreen(),
+        SettingScreen(),
+      ],
+    );
+    // switch (index) {
+    //   case 1:
+    //     FirebaseAnalytics().logEvent(
+    //       name: 'Utitlity_Screen_View',
+    //     );
+    //     return !isShow ? SettingScreen() : UtitlitiesScreen();
+    //   case 2:
+    //     FirebaseAnalytics().logEvent(
+    //       name: 'Diet_Screen_View',
+    //     );
+    //     return !isShow ? SettingScreen() : DietPlanScreen();
+    //   case 3:
+    //     FirebaseAnalytics().logEvent(
+    //       name: 'Report_Screen_View',
+    //     );
+    //     return !isShow ? SettingScreen() : ReportScreen();
+    //   case 4:
+    //     FirebaseAnalytics().logEvent(
+    //       name: 'Setting_Screen_View',
+    //     );
+    //     return SettingScreen();
+    //   default:
+    //     FirebaseAnalytics().logEvent(
+    //       name: 'Plan_Screen_View',
+    //     );
+    //     return ListView(
+    //       controller: controller,
+    //       children: [
+    //         PlanScreen(),
+    //       ],
+    //     );
+    // }
   }
 }

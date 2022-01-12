@@ -67,6 +67,7 @@ final dayProgressStream = StreamProvider<List<DayProgressTuple>>((ref) {
   return value;
 });
 
+
 // ///
 // final getWorkoutProgressByID =
 //     StreamProvider.family<WorkoutProgressTuple, int>((ref, workoutid) {
@@ -139,15 +140,18 @@ final FutureProviderFamily<int, Day>? getExercrisetime =
   return totalTime;
 });
 
-final FutureProviderFamily<List<Exercise>, Day>?
-    getExercrisebyplanIDweekIDdayIdProvider =
-    FutureProvider.family<List<Exercise>, Day>((ref, day) async {
-  List exerciseIDs;
-  List<Exercise> exerciseList = [];
-  exerciseIDs = await ref.watch(planDao).getExerciseIdByPlanIDandWeekidandDay(
+final getExercrisebyplanIDweekIDdayIdProvider =
+    FutureProvider.family<List<ExerciseId>, Day>((ref, day) async {
+  return await ref.watch(planDao).getExerciseIdByPlanIDandWeekidandDay(
       dayid: day.id, planid: day.planid, weekid: day.weekid);
+});
 
-  exerciseIDs.forEach((element) async {
+final getExercriseProvider =
+    FutureProvider.family<List<Exercise>, Day>((ref, day) async {
+  List<Exercise> exerciseList = [];
+  final exercisIds =
+      await ref.watch(getExercrisebyplanIDweekIDdayIdProvider(day).future);
+  await Future.wait(exercisIds.map((element) async {
     Exercise ex =
         await ref.watch(exerciseDao).getSingleExercise(element.exerciseid);
     ex = ex.copyWith(
@@ -156,8 +160,7 @@ final FutureProviderFamily<List<Exercise>, Day>?
         sets: element.sets,
         restTime: element.restTime);
     exerciseList.add(ex);
-  });
-
+  }));
   return exerciseList;
 });
 

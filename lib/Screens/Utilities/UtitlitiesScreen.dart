@@ -28,11 +28,6 @@ class UtitlitiesScreen extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         160.h.heightBox,
-        Image.asset(
-          'assets/icons/drawer_icon.png',
-          height: 45.h,
-        ).px(112.w),
-        72.h.heightBox,
         Container(
           height: 626.h,
           width: 1457.w,

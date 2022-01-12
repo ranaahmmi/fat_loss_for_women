@@ -42,10 +42,12 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            120.h.heightBox,
             WaterHeader(
               isAdshow: isAdShow,
+              isShowDiet: true,
             ).px(70.w),
-            74.h.heightBox,
+            64.h.heightBox,
             Text(
               "Effective Diet Plans",
               style: TextStyle(fontSize: 102.sp, fontWeight: FontWeight.bold),
@@ -55,7 +57,7 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
               "Recommended by coach",
               style: TextStyle(color: AppColors.primaryColor, fontSize: 52.sp),
             ).pOnly(left: 112.w),
-            105.h.heightBox,
+            25.h.heightBox,
             ListView.builder(
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),

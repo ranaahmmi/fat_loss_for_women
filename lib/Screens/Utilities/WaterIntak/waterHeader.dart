@@ -14,9 +14,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WaterHeader extends ConsumerWidget {
   final bool isAdshow;
+  final bool isShowDiet;
+
   const WaterHeader({
     Key? key,
     required this.isAdshow,
+    required this.isShowDiet,
   }) : super(key: key);
 
   @override
@@ -30,71 +33,61 @@ class WaterHeader extends ConsumerWidget {
             children: [
               40.h.heightBox,
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Image.asset(
-                    'assets/icons/drawer_icon.png',
-                    height: 45.h,
-                  ),
-                  Row(
-                    children: [
-                      if (isAdshow)
-                        Center(
-                                child: Lottie.asset(
-                                    'assets/Animation/premium.json',
-                                    height: 198.h))
-                            .onTap(() {
-                          Navigator.push(
-                              context, SlideRightRoute(page: ProScreen()));
-                        }),
-                      80.w.widthBox,
-                      Stack(alignment: Alignment(0, 0), children: [
-                        CircularProgressIndicator(
-                          value: water.drinkGlass! / water.totalGlass!,
-                          color: Vx.blue300,
-                          backgroundColor:
-                              AppColors.TextColorLight.withOpacity(0.1),
-                        ).wh(150.h, 150.h),
-                        Image.asset(
-                          'assets/icons/glass.png',
-                          height: 110.h,
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0.w,
-                          child: water.drinkGlass
-                              .toString()
-                              .text
-                              .bold
-                              .white
-                              .sm
-                              .makeCentered()
-                              .p(5.5)
-                              .box
-                              .roundedFull
-                              .blue300
-                              .make(),
-                        )
-                      ]).wh(200.h, 200.h).onTap(() async {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        bool _seen = (prefs.getBool('HOME_SEEN') ?? false);
-                        if (!_seen) {
-                          WaterInTake water = await context
-                              .read(waterIntakeDao)
-                              .getWaterIntakefuture();
-                          await WaterintakeSheet().showWaterSettingSheet(
-                              context,
-                              water,
-                              await context.read(userDao).getUserfuture());
-                          await prefs.setBool('HOME_SEEN', true);
-                          context.nextPage(WaterIntakScreen());
-                        } else {
-                          context.nextPage(WaterIntakScreen());
-                        }
-                      }),
-                    ],
-                  ),
+                  if (isAdshow)
+                    Center(
+                            child: Lottie.asset('assets/Animation/premium.json',
+                                height: 198.h))
+                        .onTap(() {
+                      Navigator.push(
+                          context, SlideRightRoute(page: ProScreen()));
+                    }),
+                  if (isShowDiet) 40.w.widthBox,
+                  if (isShowDiet)
+                    Stack(alignment: Alignment(0, 0), children: [
+                      CircularProgressIndicator(
+                        value: water.drinkGlass! / water.totalGlass!,
+                        color: Vx.blue300,
+                        backgroundColor:
+                            AppColors.TextColorLight.withOpacity(0.1),
+                      ).wh(135.h, 135.h),
+                      Image.asset(
+                        'assets/icons/glass.png',
+                        height: 90.h,
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 5.w,
+                        child: water.drinkGlass
+                            .toString()
+                            .text
+                            .bold
+                            .white
+                            .sm
+                            .makeCentered()
+                            .p(5.5)
+                            .box
+                            .roundedFull
+                            .blue300
+                            .make(),
+                      )
+                    ]).wh(200.h, 200.h).onTap(() async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      bool _seen = (prefs.getBool('HOME_SEEN') ?? false);
+                      if (!_seen) {
+                        WaterInTake water = await context
+                            .read(waterIntakeDao)
+                            .getWaterIntakefuture();
+                        await WaterintakeSheet().showWaterSettingSheet(context,
+                            water, await context.read(userDao).getUserfuture());
+                        await prefs.setBool('HOME_SEEN', true);
+                        context.nextPage(WaterIntakScreen());
+                      } else {
+                        context.nextPage(WaterIntakScreen());
+                      }
+                    }),
                 ],
               )
             ],

@@ -83,7 +83,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
         controller: _scrollController,
         slivers: <Widget>[
           SliverAppBar(
-              expandedHeight: isAdShow ? 1640.h : 1240.h,
+              expandedHeight: isAdShow ? 1500.h : 1080.h,
               automaticallyImplyLeading: false,
               pinned: true,
               floating: false,
@@ -97,8 +97,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                     : Row(
                         children: [
                           Image.asset("assets/icons/back_arrow.png",
-                                  height: 56.h,
-                                  color: AppColors.TextColorLight)
+                                  height: 56.h, color: AppColors.TextColorLight)
                               .onTap(() {
                             Navigator.pop(context);
                           }),
@@ -124,8 +123,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Image.asset("assets/icons/back_arrow.png",
-                                  height: 56.h,
-                                  color: AppColors.TextColorLight)
+                                  height: 56.h, color: AppColors.TextColorLight)
                               .onTap(() {
                             Navigator.pop(context);
                           }),
@@ -144,8 +142,9 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                         .bold
                         .color(AppColors.black)
                         .make()
-                        .px(111.w),
-                    38.h.heightBox,
+                        .px(111.w)
+                        .h(200.h),
+                    18.h.heightBox,
                     "Exercise: ${widget.workoutPlan.challengeDuration}"
                         .text
                         .size(48.sp)
@@ -154,11 +153,11 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                         .px(111.w),
                     96.h.heightBox,
                     Consumer(builder: (context, watch, child) {
-                      final planProgress = watch(getPlanProgressByPlanID(
-                                  widget.workoutPlan.id))
-                              .data
-                              ?.value ??
-                          PlanProgressTuple(planId: 1, planProgress: 0);
+                      final planProgress =
+                          watch(getPlanProgressByPlanID(widget.workoutPlan.id))
+                                  .data
+                                  ?.value ??
+                              PlanProgressTuple(planId: 1, planProgress: 0);
                       return LinearPercentIndicator(
                         backgroundColor: Colors.black.withOpacity(0.8),
                         animation: true,
@@ -184,7 +183,6 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
               )),
           SliverList(
               delegate: SliverChildListDelegate([
-            215.h.heightBox,
             Consumer(builder: (context, watch, child) {
               final weeks = watch(getTotalweekinPlan!(widget.workoutPlan.id));
 
@@ -274,20 +272,13 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                             100.h.heightBox,
                             fullWeekCard(
                               planID: widget.workoutPlan.id,
-                              day1Active:
-                                  isActive(dailyProgressMap, index, 1),
-                              day2Active:
-                                  isActive(dailyProgressMap, index, 2),
-                              day3Active:
-                                  isActive(dailyProgressMap, index, 3),
-                              day4Active:
-                                  isActive(dailyProgressMap, index, 4),
-                              day5Active:
-                                  isActive(dailyProgressMap, index, 5),
-                              day6Active:
-                                  isActive(dailyProgressMap, index, 6),
-                              day7Active:
-                                  isActive(dailyProgressMap, index, 7),
+                              day1Active: isActive(dailyProgressMap, index, 1),
+                              day2Active: isActive(dailyProgressMap, index, 2),
+                              day3Active: isActive(dailyProgressMap, index, 3),
+                              day4Active: isActive(dailyProgressMap, index, 4),
+                              day5Active: isActive(dailyProgressMap, index, 5),
+                              day6Active: isActive(dailyProgressMap, index, 6),
+                              day7Active: isActive(dailyProgressMap, index, 7),
                               day1isRestDay:
                                   isRestDay(dailyProgressMap, index, 1),
                               day2isRestDay:
@@ -362,34 +353,36 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
         // ),
         height: 600.h,
         width: 1313.w,
-        child: Stack(
+        child:Stack(
           children: [
             Positioned(
-                top: 33,
-                left: 35,
+                top: 100.h,
+                left: 35.w,
+                right: 145.w,
                 child: Container(
                   color: AppColors.TextColorLight,
                   height: 1.h,
-                  width: 250,
+                  width: double.infinity,
                 )),
             Positioned(
-                top: 33,
-                left: 1064.w,
+                bottom: 170.h,
+                left: 350.w,
+                right: 145.w,
                 child: Container(
                   color: AppColors.TextColorLight,
-                  height: 80,
+                  height: 1.h,
+                  width: double.infinity,
+                )),
+            Positioned(
+                top: 180.h,
+                right: 190.w,
+                child: Container(
+                  color: AppColors.TextColorLight,
+                  height: 280.h,
                   width: 1.h,
                 )),
             Positioned(
-                top: 113,
-                left: 440.w,
-                child: Container(
-                  color: AppColors.TextColorLight,
-                  height: 1.h,
-                  width: 150,
-                )),
-            Positioned(
-                top: 10,
+                top: 10.h,
                 left: 20.w,
                 child: RoundCircle(
                   title: '1',
@@ -400,7 +393,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                   weekID: weekID,
                 )),
             Positioned(
-                top: 10,
+                top: 10.h,
                 left: 340.w,
                 child: RoundCircle(
                   title: '2',
@@ -411,7 +404,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                   weekID: weekID,
                 )),
             Positioned(
-                top: 10,
+                top: 10.h,
                 left: 660.w,
                 child: RoundCircle(
                   title: '3',
@@ -422,7 +415,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                   weekID: weekID,
                 )),
             Positioned(
-                top: 10,
+                top: 10.h,
                 left: 970.w,
                 child: RoundCircle(
                   title: '4',
@@ -433,7 +426,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                   weekID: weekID,
                 )),
             Positioned(
-                top: 90,
+                bottom: 80.h,
                 left: 970.w,
                 child: RoundCircle(
                   title: '5',
@@ -444,7 +437,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                   weekID: weekID,
                 )),
             Positioned(
-                top: 90,
+                bottom: 80.h,
                 left: 660.w,
                 child: RoundCircle(
                   title: '6',
@@ -455,23 +448,23 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                   weekID: weekID,
                 )),
             Positioned(
-              top: 90,
+              bottom: 80.h,
               left: 340.w,
               child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.white,
                   ),
-                  height: 45,
-                  width: 45,
+                  height: 145.h,
+                  width: 145.w,
                   child: Center(
                     child: Image.asset(
                       'assets/icons/finish_week.png',
-                      height: 40,
+                      height: 174.h,
                       color: day7Active
                           ? AppColors.TextColorLight
                           : AppColors.primaryColor,
                     ),
-                  )).onInkTap(
+                  )).pOnly(bottom: 10).onInkTap(
                 () {
                   if (day7isRestDay) {
                     context.showToast(
@@ -489,25 +482,11 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
             ),
           ],
         ),
-      ),
+     ),
     );
   }
 }
 
-class HorizentalDivider extends StatelessWidget {
-  const HorizentalDivider({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 1.h,
-      width: 220.w,
-      color: Colors.white,
-    );
-  }
-}
 
 class RoundCircle extends StatelessWidget {
   const RoundCircle(

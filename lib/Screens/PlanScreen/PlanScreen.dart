@@ -10,6 +10,7 @@ import 'package:fat_loss_for_women/models/Tuple/PlanProgressTuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'PlanWeeksScreen.dart';
@@ -20,8 +21,13 @@ class PlanScreen extends StatefulWidget {
 }
 
 class _PlanScreenState extends State<PlanScreen> {
+    bool isShowDiet = false;
+
   @override
   void initState() {
+    FirebaseAnalytics().logEvent(
+      name: 'Plan_Screen_View',
+    );
     super.initState();
     adShow();
   }
@@ -30,6 +36,9 @@ class _PlanScreenState extends State<PlanScreen> {
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
     isAdShow = user.ip!;
+      final prefs = await SharedPreferences.getInstance();
+    final diet = prefs.getBool('diet') ?? false;
+    isShowDiet = diet;
     setState(() {});
   }
 
@@ -42,6 +51,7 @@ class _PlanScreenState extends State<PlanScreen> {
       children: [
         WaterHeader(
           isAdshow: isAdShow,
+          isShowDiet: isShowDiet,
         ),
         74.h.heightBox,
         'Best Fat lose\nworkouts for You!'

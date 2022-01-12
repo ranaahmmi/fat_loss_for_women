@@ -142,4 +142,19 @@ class PlansRepo {
     });
     return true;
   }
+
+  Future<bool> getisShowDiet(BuildContext context) async {
+    try {
+      Response response = await dio!.get('/app-plan-diet-Status?appId=$appId');
+      print(response.data);
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

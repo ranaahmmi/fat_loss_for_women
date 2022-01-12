@@ -10,7 +10,6 @@ import 'package:fat_loss_for_women/Style/Colors.dart';
 import 'package:fat_loss_for_women/database/app_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -56,11 +55,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      isLoading: isloading,
-      color: AppColors.black,
-      progressIndicator: loading(),
-      child: Scaffold(
+    return  Scaffold(
         body: ListView(
           children: [
             108.h.heightBox,
@@ -294,7 +289,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 title: "Update Data")
           ],
         ).px(108.w),
-      ),
     );
   }
 

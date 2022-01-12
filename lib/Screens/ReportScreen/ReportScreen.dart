@@ -52,6 +52,7 @@ class _ReportScreenState extends State<ReportScreen>
       children: [
         WaterHeader(
           isAdshow: isAdShow,
+          isShowDiet: true,
         ).px(5),
         74.h.heightBox,
         'My Dashboard'

@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:fat_loss_for_women/Style/Colors.dart';
 import 'package:fat_loss_for_women/database/app_database.dart';
@@ -46,13 +45,10 @@ class _PlanDetailScreenState extends State<PlanDetailScreen> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      isLoading: isLoading,
-      color: AppColors.black,
-      progressIndicator: loading(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: ListView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Container(
               height: 1573.h,
