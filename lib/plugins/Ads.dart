@@ -2,19 +2,15 @@ import 'package:fat_loss_for_women/Shared/Constants.dart';
 import 'package:fat_loss_for_women/Shared/ShimmerLoading.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // class NativeAdsFull extends StatefulWidget {
 //   const NativeAdsFull({Key? key}) : super(key: key);
-
 //   @override
 //   _NativeAdsFullState createState() => _NativeAdsFullState();
 // }
-
 // class _NativeAdsFullState extends State<NativeAdsFull>
 //     with AutomaticKeepAliveClientMixin {
 //   final controller = NativeAdController();
-
 //   @override
 //   void initState() {
 //     super.initState();
@@ -23,13 +19,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //       setState(() {});
 //     });
 //   }
-
 //   @override
 //   void dispose() {
 //     controller.dispose();
 //     super.dispose();
 //   }
-
 //   @override
 //   // ignore: must_call_super
 //   Widget build(BuildContext context) {
@@ -90,11 +84,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //           )
 //         : ShimmerLoading().fullSizeLoading();
 //   }
-
 //   @override
 //   bool get wantKeepAlive => true;
 // }
-
 // class NativeAdBanner extends StatefulWidget {
 //   const NativeAdBanner({Key? key}) : super(key: key);
 
@@ -114,13 +106,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //       setState(() {});
 //     });
 //   }
-
 //   @override
 //   void dispose() {
 //     controller.dispose();
 //     super.dispose();
 //   }
-
 //   @override
 //   // ignore: must_call_super
 //   Widget build(BuildContext context) {
@@ -179,11 +169,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //           )
 //         : ShimmerLoading().mediumLoading();
 //   }
-
 //   @override
 //   bool get wantKeepAlive => true;
 // }
-
 // AdLayoutBuilder get fullBuilder => (ratingBar, media, icon, headline,
 //         advertiser, body, price, store, attribuition, button) {
 //       return AdLinearLayout(
@@ -258,6 +246,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //         ],
 //       );
 //     };
+
 class NativeAdBanner extends StatefulWidget {
   const NativeAdBanner();
 
@@ -300,10 +289,7 @@ class _NativeAdBannerState extends State<NativeAdBanner>
   Widget build(BuildContext context) {
     super.build(context);
     if (_isAdLoaded) {
-      return Container(
-        child: SizedBox(height: 200, child: AdWidget(ad: _ad)),
-        height: 424.h,
-      );
+      return SizedBox(height: 120, child: AdWidget(ad: _ad));
     }
     return ShimmerLoading().mediumLoading();
   }
@@ -360,10 +346,7 @@ class _NativeAdsFullState extends State<NativeAdsFull>
   Widget build(BuildContext context) {
     super.build(context);
     if (_isAdLoaded) {
-      return Container(
-        child: SizedBox(height: 200, child: AdWidget(ad: _ad)),
-        height: 880.h,
-      );
+      return SizedBox(height: 300, child: AdWidget(ad: _ad));
     }
     return ShimmerLoading().fullSizeLoading();
   }

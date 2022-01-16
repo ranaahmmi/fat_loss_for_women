@@ -58,7 +58,7 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
 
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    isAdShow = user.ip!;
+    // isAdShow = user.ip!;
     setState(() {});
   }
 
@@ -74,7 +74,7 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
               controller: _scrollController,
               slivers: <Widget>[
                 SliverAppBar(
-                    expandedHeight: 700.h,
+                    expandedHeight: 800.h,
                     automaticallyImplyLeading: false,
                     pinned: true,
                     floating: false,
@@ -147,57 +147,78 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                       String key = "${item.exerciseId}";
                       progressMap[key] = item.progress == 0 ? false : true;
                     }
-                      return exercis.when(
-                          data: (exerciseList) {
-                            return exerciseList.length == 0
-                                ? loading()
-                                : ListView(
-                                    physics: BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    children: [
-                                      26.h.heightBox,
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        child:
-                                            "Exercises (${exerciseList.length})"
-                                                .text
-                                                .size(72.sp)
-                                                .bold
-                                                .color(AppColors.black)
-                                                .make(),
-                                      ).px(50.w),
-                                      121.h.heightBox,
-                                      ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: BouncingScrollPhysics(),
-                                          itemCount: exerciseList.length,
-                                          itemBuilder: (context, index) {
-                                            final isdone = progressMap[
-                                                '${exerciseList[index].id}'];
+                    return exercis.when(
+                        data: (exerciseList) {
+                          return exerciseList.length == 0
+                              ? loading()
+                              : ListView(
+                                  physics: BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: [
+                                    26.h.heightBox,
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child:
+                                          "Exercises (${exerciseList.length})"
+                                              .text
+                                              .size(72.sp)
+                                              .bold
+                                              .color(AppColors.black)
+                                              .make(),
+                                    ).px(50.w),
+                                    121.h.heightBox,
+                                    ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: BouncingScrollPhysics(),
+                                        itemCount: exerciseList.length,
+                                        itemBuilder: (context, index) {
+                                          final isdone = progressMap[
+                                              '${exerciseList[index].id}'];
 
-                                            return Column(
-                                              children: [
-                                                if (index % 3 == 0 &&
-                                                    index != 0 &&
-                                                    isAdShow)
-                                                  NativeAdBanner(),
-                                                ExerciseCard(
-                                                        exercise:
-                                                            exerciseList[index],
-                                                        function: () async {
-                                                          final interstitial =
-                                                              context.read(
-                                                                  interstitialAdProvider);
-                                                          SharedPreferences
-                                                              prefs =
-                                                              await SharedPreferences
-                                                                  .getInstance();
+                                          return Column(
+                                            children: [
+                                              if (index % 3 == 0 &&
+                                                  index != 0 &&
+                                                  isAdShow)
+                                                NativeAdBanner(),
+                                              ExerciseCard(
+                                                      exercise:
+                                                          exerciseList[index],
+                                                      function: () async {
+                                                        final interstitial =
+                                                            context.read(
+                                                                interstitialAdProvider);
+                                                        SharedPreferences
+                                                            prefs =
+                                                            await SharedPreferences
+                                                                .getInstance();
 
-                                                          if (isAdShow) {
-                                                            if (!interstitial
-                                                                .isAvailable) {
-                                                              interstitial
-                                                                  .load();
+                                                        if (isAdShow) {
+                                                          if (!interstitial
+                                                              .isAvailable) {
+                                                            interstitial.load();
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ExercisePage(
+                                                                              islast: index == exerciseList.length - 1,
+                                                                              exercise: exerciseList[index],
+                                                                              exerciseIds: ExerciseId(dayid: widget.dayID!, planid: widget.planID!, weekid: widget.weekID!, exerciseid: exerciseList[index].id),
+                                                                            )));
+                                                          } else {
+                                                            String _lastTime = (prefs
+                                                                    .getString(
+                                                                        'AdTime') ??
+                                                                DateTime.now()
+                                                                    .toIso8601String());
+                                                            if (DateTime.parse(
+                                                                    _lastTime)
+                                                                .isBefore(DateTime
+                                                                    .now())) {
+                                                              await interstitial
+                                                                  .show();
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
@@ -213,78 +234,67 @@ class _PlanExerciseListState extends State<PlanExerciseList> {
                                                                                 weekid: widget.weekID!,
                                                                                 exerciseid: exerciseList[index].id),
                                                                           )));
-                                                            } else {
-                                                              String _lastTime = (prefs
-                                                                      .getString(
-                                                                          'AdTime') ??
+                                                              prefs.setString(
+                                                                  'AdTime',
                                                                   DateTime.now()
+                                                                      .add(Duration(
+                                                                          seconds:
+                                                                              14))
                                                                       .toIso8601String());
-                                                              if (DateTime.parse(
-                                                                      _lastTime)
-                                                                  .isBefore(DateTime
-                                                                      .now())) {
-                                                                await interstitial
-                                                                    .show();
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            ExercisePage(
-                                                                              islast: index == exerciseList.length - 1,
-                                                                              exercise: exerciseList[index],
-                                                                              exerciseIds: ExerciseId(dayid: widget.dayID!, planid: widget.planID!, weekid: widget.weekID!, exerciseid: exerciseList[index].id),
-                                                                            )));
-                                                                prefs.setString(
-                                                                    'AdTime',
-                                                                    DateTime.now()
-                                                                        .add(Duration(
-                                                                            seconds:
-                                                                                14))
-                                                                        .toIso8601String());
-                                                              } else {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            ExercisePage(
-                                                                              islast: index == exerciseList.length - 1,
-                                                                              exercise: exerciseList[index],
-                                                                              exerciseIds: ExerciseId(dayid: widget.dayID!, planid: widget.planID!, weekid: widget.weekID!, exerciseid: exerciseList[index].id),
-                                                                            )));
-                                                              }
+                                                            } else {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          ExercisePage(
+                                                                            islast:
+                                                                                index == exerciseList.length - 1,
+                                                                            exercise:
+                                                                                exerciseList[index],
+                                                                            exerciseIds: ExerciseId(
+                                                                                dayid: widget.dayID!,
+                                                                                planid: widget.planID!,
+                                                                                weekid: widget.weekID!,
+                                                                                exerciseid: exerciseList[index].id),
+                                                                          )));
                                                             }
-                                                          } else {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            ExercisePage(
-                                                                              islast: index == exerciseList.length - 1,
-                                                                              exercise: exerciseList[index],
-                                                                              exerciseIds: ExerciseId(dayid: widget.dayID!, planid: widget.planID!, weekid: widget.weekID!, exerciseid: exerciseList[index].id),
-                                                                            )));
                                                           }
-                                                        },
-                                                        isdone: isdone)
-                                                    .px(50.w),
-                                              ],
-                                            );
-                                          }),
-                                    ],
-                                  );
-                          },
-                          loading: () => loading(color: Colors.red[700]),
-                          error: error);
-                    }
-                  ),
+                                                        } else {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ExercisePage(
+                                                                            islast:
+                                                                                index == exerciseList.length - 1,
+                                                                            exercise:
+                                                                                exerciseList[index],
+                                                                            exerciseIds: ExerciseId(
+                                                                                dayid: widget.dayID!,
+                                                                                planid: widget.planID!,
+                                                                                weekid: widget.weekID!,
+                                                                                exerciseid: exerciseList[index].id),
+                                                                          )));
+                                                        }
+                                                      },
+                                                      isdone: isdone)
+                                                  .px(50.w),
+                                            ],
+                                          );
+                                        }),
+                                  ],
+                                );
+                        },
+                        loading: () => loading(color: Colors.red[700]),
+                        error: error);
+                  }),
                 ]))
               ]),
         ],
       ),
     );
   }
-
 }
 
 class ExerciseCard extends StatelessWidget {

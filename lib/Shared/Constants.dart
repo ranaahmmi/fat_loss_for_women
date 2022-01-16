@@ -44,7 +44,7 @@ Widget error(Object e, StackTrace? st) {
   return Center(child: 'Error: $e'.text.center.red600.makeCentered());
 }
 
-const String item1m = 'item_1m';
+const String item1m = 'p_item_5.99';
 
 const Set<String> kProductIds = <String>{item1m};
 

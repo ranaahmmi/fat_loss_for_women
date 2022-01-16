@@ -29,7 +29,7 @@ class _ExerciseDoneScreenState extends State<ExerciseDoneScreen> {
   bool isAdShow = false;
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    isAdShow = user.ip!;
+    // isAdShow = user.ip!;
     setState(() {});
   }
 

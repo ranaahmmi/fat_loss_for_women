@@ -58,7 +58,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
   bool isAdShow = false;
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    isAdShow = user.ip!;
+    // isAdShow = user.ip!;
     setState(() {});
   }
 
@@ -143,7 +143,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
                         .color(AppColors.black)
                         .make()
                         .px(111.w)
-                        .h(200.h),
+                        .h(100.h),
                     18.h.heightBox,
                     "Exercise: ${widget.workoutPlan.challengeDuration}"
                         .text
@@ -353,7 +353,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
         // ),
         height: 600.h,
         width: 1313.w,
-        child:Stack(
+        child: Stack(
           children: [
             Positioned(
                 top: 100.h,
@@ -482,11 +482,10 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
             ),
           ],
         ),
-     ),
+      ),
     );
   }
 }
-
 
 class RoundCircle extends StatelessWidget {
   const RoundCircle(

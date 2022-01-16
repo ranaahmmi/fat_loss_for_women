@@ -45,7 +45,7 @@ class _ExercisePageState extends State<ExercisePage> {
   bool isAdShow = false;
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    isAdShow = user.ip!;
+    // isAdShow = user.ip!;
     setState(() {});
   }
 

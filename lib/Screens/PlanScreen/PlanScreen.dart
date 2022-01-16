@@ -21,7 +21,7 @@ class PlanScreen extends StatefulWidget {
 }
 
 class _PlanScreenState extends State<PlanScreen> {
-    bool isShowDiet = false;
+  bool isShowDiet = false;
 
   @override
   void initState() {
@@ -35,8 +35,8 @@ class _PlanScreenState extends State<PlanScreen> {
   bool isAdShow = false;
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    isAdShow = user.ip!;
-      final prefs = await SharedPreferences.getInstance();
+    // isAdShow = user.ip!;
+    final prefs = await SharedPreferences.getInstance();
     final diet = prefs.getBool('diet') ?? false;
     isShowDiet = diet;
     setState(() {});
@@ -88,7 +88,7 @@ class _PlanScreenState extends State<PlanScreen> {
                     return Column(
                       children: [
                         (index == 1 || index == 3) && isAdShow
-                            ? NativeAdsFull()
+                            ? NativeAdsFull().pOnly(bottom: 20.h)
                             : Text(''),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
