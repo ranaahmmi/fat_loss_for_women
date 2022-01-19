@@ -58,7 +58,7 @@ class _PlanWeeksScreenState extends State<PlanWeeksScreen> {
   bool isAdShow = false;
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    // isAdShow = user.ip!;
+    isAdShow = user.ip!;
     setState(() {});
   }
 

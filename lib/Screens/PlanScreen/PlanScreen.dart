@@ -35,7 +35,7 @@ class _PlanScreenState extends State<PlanScreen> {
   bool isAdShow = false;
   adShow() async {
     final user = await context.read(userDao).getUserfuture();
-    // isAdShow = user.ip!;
+    isAdShow = user.ip!;
     final prefs = await SharedPreferences.getInstance();
     final diet = prefs.getBool('diet') ?? false;
     isShowDiet = diet;

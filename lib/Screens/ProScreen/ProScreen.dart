@@ -176,7 +176,19 @@ class _ProScreenState extends State<ProScreen> {
                             .color(AppColors.TextColorLight)
                             .make()
                             .w(942.w),
-                        143.h.heightBox,
+                        90.h.heightBox,
+                        'Restore Purchase'
+                            .text
+                            .underline
+                            .center
+                            .bold
+                            .size(48.sp)
+                            .color(AppColors.black)
+                            .make()
+                            .onTap(() async {
+                          await InAppPurchase.instance.restorePurchases();
+                        }),
+                        60.h.heightBox,
                         CustomChildButton(
                             onpressed: () async {
                               if (_isAvailable) {
@@ -192,31 +204,12 @@ class _ProScreenState extends State<ProScreen> {
                                   }));
                                   PurchaseParam purchaseParam;
 
-                                  // print(_products);
                                   ProductDetails productDetails = _products[0];
 
-                                  // if (Platform.isAndroid) {
-                                  //   final oldSubscription = _getOldSubscription(
-                                  //       productDetails, purchases);
-
-                                  //   purchaseParam = GooglePlayPurchaseParam(
-                                  //       productDetails: productDetails,
-                                  //       applicationUserName: null,
-                                  //       changeSubscriptionParam:
-                                  //           (oldSubscription != null)
-                                  //               ? ChangeSubscriptionParam(
-                                  //                   oldPurchaseDetails:
-                                  //                       oldSubscription,
-                                  //                   prorationMode: ProrationMode
-                                  //                       .immediateWithTimeProration,
-                                  //                 )
-                                  //               : null);
-                                  // } else {
                                   purchaseParam = PurchaseParam(
                                     productDetails: productDetails,
                                     applicationUserName: null,
                                   );
-                                  // }
 
                                   if (productDetails.id == 'kConsumableId') {
                                     _inAppPurchase.buyConsumable(
@@ -266,7 +259,10 @@ class _ProScreenState extends State<ProScreen> {
                                 ],
                               ),
                             )),
-                        103.h.heightBox,
+
+                        53.h.heightBox,
+
+                        53.h.heightBox,
                         'Start using with ADS'
                             .text
                             .underline
@@ -447,7 +443,8 @@ class _ProScreenState extends State<ProScreen> {
         print('[${purchaseDetails.productID}] purchase failed');
         print(purchaseDetails.error);
         return;
-      } else if (purchaseDetails.status == PurchaseStatus.purchased) {
+      } else if (purchaseDetails.status == PurchaseStatus.purchased ||
+          purchaseDetails.status == PurchaseStatus.restored) {
         bool valid = await _verifyPurchase(purchaseDetails);
         if (valid) {
           deliverProduct(purchaseDetails);
